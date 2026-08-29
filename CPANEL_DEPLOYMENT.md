@@ -19,19 +19,20 @@ git push -u origin main
 
 ## 2. How to Upload & Deploy to cPanel (`public_html`)
 
-### Method A: Static Site Upload (Recommended for Standard cPanel)
+### Method A: One-Click Tar Upload (Instant Deployment)
+1. In your cPanel dashboard, open **File Manager** and enter the **`public_html`** directory (or your target subdomain root).
+2. Click **Upload** in the top toolbar and upload the pre-packaged file:
+   - **`cpanel_public_html.tar.gz`** (located at the root of this repository).
+3. Once uploaded, right-click `cpanel_public_html.tar.gz` in File Manager and select **Extract** -> Extract to `/public_html`.
+4. Done! All production assets, WebP images, `.htaccess` (with SPA rewrite rules & Gzip caching), `sitemap.xml`, `robots.txt`, and `api/submit.php` are immediately active.
+
+### Method B: Manual Build & Upload
 1. **Run Build**:
    ```bash
    npm run build
    ```
-2. Open your cPanel account and navigate to **File Manager** -> **`public_html`**.
-3. Upload and extract the contents of the generated **`dist/`** folder directly inside **`public_html/`**:
-   - `index.html`
-   - `assets/` (bundled JS & CSS)
-   - `images/` (optimized WebP clinic images)
-   - `.htaccess` (included in `public/` - preconfigured for SPA routing, gzip compression, and caching)
-   - `api/submit.php` (PHP form backend for handling appointment bookings & emails on Apache/cPanel)
-   - `sitemap.xml`
+2. In cPanel **File Manager** -> **`public_html`**, upload the contents of the generated **`dist/`** directory.
+3. Ensure `.htaccess` is present to handle React SPA route navigation and caching.
 
 ### Method B: Node.js App on cPanel (If using cPanel Node.js Selector)
 1. In cPanel, click **Setup Node.js App**.

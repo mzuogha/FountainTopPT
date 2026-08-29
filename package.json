@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "tsx server.ts",
     "build": "vite build && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
+    "build:cpanel": "vite build && cd dist && tar -czvf ../cpanel_public_html.tar.gz * .htaccess && cd ..",
     "start": "node dist/server.cjs",
     "lint": "tsc --noEmit"
   },
