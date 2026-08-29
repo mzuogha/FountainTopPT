@@ -327,5 +327,302 @@ export const HEALTH_ARTICLES: HealthArticle[] = [
     image: '/images/547/27303071/FullBodyMassage-q644JnCMDKrGVc3TTr80ng.webp',
     tags: ['Neck Pain', 'Cervical Spondylosis', 'Text Neck', 'Headache Relief', 'Ergonomics'],
     relatedServiceId: 'musculoskeletal'
+  },
+  {
+    id: 'article-7',
+    slug: 'frozen-shoulder-adhesive-capsulitis-recovery-stages',
+    title: 'Overcoming Frozen Shoulder (Adhesive Capsulitis): The 3 Clinical Stages & Gentle Mobility Protocols',
+    category: 'joint-arthritis',
+    categoryLabel: 'Joint & Arthritis Care',
+    readTime: '5 min read',
+    publishDate: 'Updated August 2026',
+    author: {
+      name: 'Dr. Tunde Alabi',
+      role: 'Orthopedic Rehabilitation Specialist',
+      avatar: '/images/92,1252x1254+0+0/27300730/tunde-Y4G8IKHFbHAotLal9NIMMA.webp'
+    },
+    summary: 'Adhesive capsulitis causes severe shoulder stiffness and nocturnal ache. Understand the freezing, frozen, and thawing phases, and how gentle physiotherapeutic joint glides prevent permanent range loss.',
+    keyTakeaways: [
+      'Frozen shoulder progresses through 3 distinct phases: Freezing (pain predominant), Frozen (stiffness predominant), and Thawing (gradual recovery).',
+      'Aggressive forced stretching during Stage 1 aggravates capsular inflammation and worsens stiffness.',
+      'Passive Codman pendulum swings and low-grade Maitland mobilizations reduce pain without aggravating the capsule.',
+      'Loss of external rotation with the elbow tucked at the side is the clinical hallmark of adhesive capsulitis.'
+    ],
+    content: {
+      introduction: 'Adhesive capsulitis, commonly known as frozen shoulder, is a condition characterized by insidious onset of pain and progressive global restriction of active and passive glenohumeral motion. The joint capsule thickens, contracts, and develops fibrotic adhesions that restrict the humeral head from gliding freely. With stage-appropriate physical therapy, patients can accelerate resolution and regain overhead reach.',
+      sections: [
+        {
+          heading: '1. Phase 1: The "Freezing" Stage (2 to 9 Months)',
+          body: 'During this inflammatory phase, pain is severe, constant, and typically worse at night when lying on the affected shoulder. Aggressive stretching during this phase triggers inflammatory flares. Treatment focuses on pain modulation, gentle heat/cold, and non-provocative pendular oscillations.',
+          actionableTips: [
+            'Perform Codman Pendulum swings: lean forward over a table, let the affected arm hang relaxed like a dead weight, and gently sway your body to circle the arm without active muscular effort.',
+            'Sleep on your back or unaffected side with a supportive pillow placed under the forearm of the affected limb.'
+          ]
+        },
+        {
+          heading: '2. Phase 2: The "Frozen" Stage (4 to 12 Months)',
+          body: 'Pain begins to plateau or diminish, but stiffness reaches its peak. Active daily tasks like fastening garments behind the back or reaching overhead become severely restricted. Physiotherapy introduces progressive end-range sustained stretches and posterior capsular mobilizations.'
+        },
+        {
+          heading: '3. Phase 3: The "Thawing" Stage (12 to 24+ Months)',
+          body: 'Spontaneous resolution begins as the contracted capsule remodels. Structured rotator cuff strengthening, scapular stabilization, and functional neuromuscular re-education ensure full restoration of joint mechanics.'
+        }
+      ],
+      physioAdvice: 'Early diagnosis by a physiotherapist differentiates adhesive capsulitis from rotator cuff tears and calcific tendinopathy, ensuring you receive the correct treatment at each stage.'
+    },
+    image: '/images/1920/27323029/TotalMotion-i6V21VBepNOiZPFWp0X9Kg.webp',
+    tags: ['Frozen Shoulder', 'Adhesive Capsulitis', 'Shoulder Pain', 'Joint Mobilization', 'Orthopedics'],
+    relatedServiceId: 'musculoskeletal'
+  },
+  {
+    id: 'article-8',
+    slug: 'plantar-fasciitis-morning-heel-pain-rathleff-protocol',
+    title: 'Plantar Fasciitis & Morning Heel Pain: Why Rest Fails and How High-Load Strength Training Heals',
+    category: 'wellness-prevention',
+    categoryLabel: 'Wellness & Prevention',
+    readTime: '4 min read',
+    publishDate: 'Updated August 2026',
+    author: {
+      name: 'Dr. Chinedu Okafor',
+      role: 'Chief Physiotherapist & Spine Specialist',
+      avatar: '/images/92,1252x1254+0+0/27300475/chineduokafor-8nKSetgdRTt1w6ZHdHakhg.webp'
+    },
+    summary: 'Sharp pain upon taking your first morning steps is the classic hallmark of plantar fasciopathy. Discover the clinically proven Rathleff high-load strength protocol, calf-ankle mobility drills, and arch biomechanics.',
+    keyTakeaways: [
+      'Plantar fasciitis is predominantly a degenerative micro-tear disorder (fasciopathy) rather than purely acute inflammation.',
+      'Complete immobilization weakens collagen fibres; controlled progressive mechanical loading stimulates tissue remodeling.',
+      'The Rathleff Protocol (heel raises with a towel under the big toe) activates the Windlass mechanism to rebuild tendon tensile strength.',
+      'Tight gastrocnemius and soleus calf muscles limit dorsiflexion and transfer massive compensatory tension onto the plantar fascia.'
+    ],
+    content: {
+      introduction: 'That sharp, stabbing pain under your heel when taking your first morning steps or standing up after prolonged sitting is plantar fasciopathy. The plantar fascia is a thick fibrous band connecting your calcaneus (heel bone) to your toes. In modern concrete environments and with unsupportive footwear, repetitive tensile overload causes collagen degeneration.',
+      sections: [
+        {
+          heading: '1. The Rathleff High-Load Strength Protocol',
+          body: 'Published in the Scandinavian Journal of Medicine & Science in Sports, heavy-slow resistance training produces faster pain reduction and superior functional recovery compared to standard stretching alone.',
+          actionableTips: [
+            'Place a rolled hand towel under your toes on a stair or step to hyperextend the metatarsophalangeal joints (engaging the Windlass mechanism).',
+            'Perform slow, controlled calf raises: 3 seconds to rise, 2-second hold at top, 3 seconds to lower.',
+            'Perform 3 sets of 12 repetitions every other day, gradually adding backpack weight as pain allows.'
+          ]
+        },
+        {
+          heading: '2. Gastrocnemius & Soleus Calf Mobilization',
+          body: 'A stiff ankle joint forces the foot to over-pronate during push-off. Stretching both the straight-knee calf (gastrocnemius) and bent-knee calf (soleus) restores normal 15-20 degrees of ankle dorsiflexion.'
+        },
+        {
+          heading: '3. Pre-Step Morning Mobilization Routine',
+          body: 'Before putting weight on your feet in the morning, cross your leg over and use your hands to gently pull your toes upward toward your shin for 10 seconds (repeat 5 times). This warms the contracted fascia before initial weight-bearing.'
+        }
+      ],
+      physioAdvice: 'Avoid walking barefoot on hard tile or stone floors while recovering. Custom or semi-rigid orthotic arch supports cushion the medial calcaneal tuberosity and accelerate healing.'
+    },
+    image: '/images/408/27299818/clubfoot-gYGnG5vQHpePmAvZUnuKRQ.webp',
+    tags: ['Plantar Fasciitis', 'Heel Pain', 'Rathleff Protocol', 'Foot & Ankle', 'Physiotherapy'],
+    relatedServiceId: 'musculoskeletal'
+  },
+  {
+    id: 'article-9',
+    slug: 'carpal-tunnel-syndrome-nerve-gliding-ergonomics',
+    title: 'Carpal Tunnel Syndrome vs. Pinched Neck Nerve: Neurodynamic Flossing & Ergonomics',
+    category: 'spine-back',
+    categoryLabel: 'Spine & Back Health',
+    readTime: '5 min read',
+    publishDate: 'Updated August 2026',
+    author: {
+      name: 'Dr. Amaka Eze',
+      role: 'Wellness & Ergonomics Lead',
+      avatar: '/images/92,765x766+0+128/27300846/Amakaeze--aCGAL0ghM8esEfhgo4udA.webp'
+    },
+    summary: 'Numbness, tingling, or nighttime burning in the thumb, index, and middle fingers can stem from wrist compression or cervical root irritation. Learn neurodynamic nerve gliding exercises and optimal wrist positioning.',
+    keyTakeaways: [
+      'The median nerve passes through the carpal tunnel beneath the transverse carpal ligament, supplying the thumb, index, middle, and half of ring finger.',
+      'Sustained wrist extension while typing or using a mouse increases carpal tunnel pressure six-fold.',
+      'Differentiating median nerve entrapment at the wrist from cervical radiculopathy (C6/C7 disc pinch) is essential for targeted treatment.',
+      'Neurodynamic "nerve flossing" glides the nerve through surrounding tissues, preventing adhesions and restoring microcirculation.'
+    ],
+    content: {
+      introduction: 'Tingling fingers, weak grip, and waking up in the middle of the night needing to "shake out" your hand are hallmark signs of median nerve distress. Whether caused by prolonged computer typing, driving, pregnancy fluid retention, or repetitive manual tasks, conservative physiotherapy resolves symptoms in over 75% of mild-to-moderate cases without surgery.',
+      sections: [
+        {
+          heading: '1. Wrist Ergonomics & Neutral Splinting',
+          body: 'Resting your wrist on a hard desk edge or working with the wrist tilted upward (extension) narrows the carpal tunnel cross-sectional area. Keep your forearms supported so your wrists remain in a neutral 0-degree plane.',
+          actionableTips: [
+            'Wear a neutral wrist splint at night to prevent sleep-induced wrist curling (flexion), which chokes axonal blood flow.',
+            'Position your mouse and keyboard so you do not have to stretch or deviate your wrist sideways.'
+          ]
+        },
+        {
+          heading: '2. Median Nerve Gliding Exercises',
+          body: 'Gentle nerve mobilizations slide the median nerve along its anatomical pathway from the neck down to the fingertips, reducing intraneural edema.',
+          actionableTips: [
+            'Make a fist with the thumb outside the fingers.',
+            'Open fingers and extend the wrist back gently.',
+            'Extend the thumb outward and slowly tilt the head toward the opposite shoulder.',
+            'Perform 5 smooth, painless repetitions 3 times daily. Never push into sharp tingling or pain.'
+          ]
+        },
+        {
+          heading: '3. Cervical Spine & Thoracic Outlet Assessment',
+          body: 'In "double crush syndrome", a mild compression of cervical nerve roots in the neck sensitizes the nerve along its distal pathway at the wrist. A complete spinal evaluation ensures no underlying cervical issue is overlooked.'
+        }
+      ],
+      physioAdvice: 'If you notice visible muscle wasting at the base of your thumb (thenar atrophy) or constant numbness that does not resolve, immediate clinical consultation is required.'
+    },
+    image: '/images/547/27303071/FullBodyMassage-q644JnCMDKrGVc3TTr80ng.webp',
+    tags: ['Carpal Tunnel', 'Nerve Gliding', 'Hand Numbness', 'Ergonomics', 'Neurodynamics'],
+    relatedServiceId: 'musculoskeletal'
+  },
+  {
+    id: 'article-10',
+    slug: 'peace-and-love-protocol-acute-sprain-injury-recovery',
+    title: 'Why The Old R.I.C.E. Protocol Was Replaced by P.E.A.C.E. & L.O.V.E. for Sprains & Muscle Tears',
+    category: 'post-surgery',
+    categoryLabel: 'Post-Surgical Rehab',
+    readTime: '5 min read',
+    publishDate: 'Updated August 2026',
+    author: {
+      name: 'Dr. Tunde Alabi',
+      role: 'Orthopedic Rehabilitation Specialist',
+      avatar: '/images/92,1252x1254+0+0/27300730/tunde-Y4G8IKHFbHAotLal9NIMMA.webp'
+    },
+    summary: 'Published in the British Journal of Sports Medicine, the modern P.E.A.C.E. & L.O.V.E. framework replaces excessive ice and anti-inflammatories with active mechanotherapy to rebuild strong, resilient soft tissue.',
+    keyTakeaways: [
+      'Excessive ice application delays tissue healing by shutting down the initial cellular inflammatory response required for collagen repair.',
+      'NSAIDs (anti-inflammatory drugs) taken during the first 48 hours impair tissue regeneration and tendon-to-bone healing.',
+      'P.E.A.C.E. governs the acute management phase (Days 1–3): Protect, Elevate, Avoid anti-inflammatories, Compress, Educate.',
+      'L.O.V.E. guides subacute rehabilitation (Day 4 onwards): Load, Optimism, Vascularization, Exercise.'
+    ],
+    content: {
+      introduction: 'For decades, athletes and injured patients were instructed to follow the R.I.C.E. protocol (Rest, Ice, Compression, Elevation). However, contemporary sports medicine and cellular biology have revealed that prolonged rest and aggressive icing blunt the natural inflammatory cascade essential for tissue remodeling. The British Journal of Sports Medicine introduced P.E.A.C.E. & L.O.V.E. as the gold standard for soft tissue recovery.',
+      sections: [
+        {
+          heading: '1. The Acute Phase: P.E.A.C.E. (First 1 to 3 Days)',
+          body: 'Immediately following an ankle sprain, muscle strain, or ligament tear, focus on protecting the tissue without halting healing biological processes.',
+          actionableTips: [
+            'P - Protect: Unload and restrict movement for the first 24–48 hours to minimize bleeding.',
+            'E - Elevate: Elevate the limb higher than the heart to promote interstitial fluid drainage.',
+            'A - Avoid Anti-inflammatories: Allow natural inflammatory cells (macrophages) to clean up damaged fibers.',
+            'C - Compress: Use elastic bandage wrapping to limit intra-articular edema.',
+            'E - Educate: Learn that active recovery outperforms passive modalities.'
+          ]
+        },
+        {
+          heading: '2. The Subacute Phase: L.O.V.E. (Day 4 Onwards)',
+          body: 'After the initial acute pain subsides, dynamic movement and progressive mechanotransduction guide new collagen alignment.',
+          actionableTips: [
+            'L - Load: Introduce pain-free, active weight-bearing early to stimulate tendon/ligament remodeling.',
+            'O - Optimism: Maintain a positive psychological outlook, which directly correlates with faster neurological and motor recovery.',
+            'V - Vascularization: Engage in pain-free cardiovascular activity (e.g. stationary cycling) to boost blood perfusion.',
+            'E - Exercise: Rebuild strength, joint proprioception, and dynamic neuromuscular control.'
+          ]
+        }
+      ],
+      physioAdvice: 'Early guided physical therapy transforms a vulnerable sprain into a fully resilient, re-injury-resistant joint.'
+    },
+    image: '/images/1920/27323026/Wellness-fsxjlunXObTd_keNXqFrfA.webp',
+    tags: ['PEACE and LOVE', 'Sprain Treatment', 'Sports Injury', 'Ankle Rehab', 'Evidence-Based Physio'],
+    relatedServiceId: 'post-surgical'
+  },
+  {
+    id: 'article-11',
+    slug: 'senior-balance-fall-prevention-otago-exercises',
+    title: 'Senior Balance & Fall Prevention: The Otago Physical Therapy Guide to Preserving Independence',
+    category: 'wellness-prevention',
+    categoryLabel: 'Wellness & Prevention',
+    readTime: '6 min read',
+    publishDate: 'Updated August 2026',
+    author: {
+      name: 'Dr. Blessing Nwosu',
+      role: 'Senior Neuro-Physiotherapist',
+      avatar: '/images/92,299x300+12+0/27300652/BlessingNwosu-9_p1wcpsO5aTVxE1D1O1gw.webp'
+    },
+    summary: 'Falls are the leading cause of hip fractures and loss of autonomy among seniors. Discover how multi-sensory balance retraining, reactive stepping, and lower-limb strengthening preserve safety and mobility.',
+    keyTakeaways: [
+      'Age-related loss of muscle mass (sarcopenia) and decreased sensory feedback slow reactive fall recovery reflexes.',
+      'The Otago Exercise Program is clinically proven to reduce falls in older adults by 35% to 50%.',
+      'Training the 3 balance systems (Visual, Vestibular, and Proprioceptive) keeps coordination sharp.',
+      'Sit-to-stand power drills rebuild the quadriceps and gluteal strength required for independent stair navigation.'
+    ],
+    content: {
+      introduction: 'Maintaining physical autonomy, confidence, and steady footing is essential for enjoying healthy senior years. Balance is not a single sense—it is an intricate integration of what your eyes see, what your inner ear senses (vestibular), and what the nerve receptors in your feet and joints feel (proprioception). Structured geriatric physical therapy maintains bone density, joint flexibility, and rapid postural reflexes.',
+      sections: [
+        {
+          heading: '1. The 3 Pillars of Postural Stability',
+          body: 'As we age, we often become overly reliant on visual cues for balance. When light dims or ground surfaces become uneven, falls happen. Physiotherapy trains the vestibular system and ankle proprioceptors to maintain equilibrium regardless of visual conditions.',
+          actionableTips: [
+            'Practice Tandem Standing: Stand with one foot directly in front of the other (heel-to-toe) near a sturdy countertop for safety. Hold for 20 seconds, then switch feet.',
+            'Perform Single-Leg Stance: Stand on one foot while lightly touching a support, progressing to hands-free as confidence builds.'
+          ]
+        },
+        {
+          heading: '2. Functional Lower-Limb Power (Sit-to-Stand)',
+          body: 'Strong thigh, hip, and calf muscles provide the mechanical force needed to catch yourself if you trip.',
+          actionableTips: [
+            'Perform Chair Squats: Sit on a sturdy dining chair, cross your arms over your chest, lean slightly forward from your hips, and stand up without using your hands. Repeat 10 times daily.'
+          ]
+        },
+        {
+          heading: '3. Home Hazard Audit & Environmental Safety',
+          body: 'Eliminating throw rugs, installing secure grab bars in bathrooms, and ensuring adequate hallway lighting are simple, life-saving measures.'
+        }
+      ],
+      physioAdvice: 'A comprehensive fall-risk screening by our neuro-physiotherapists assesses your gait velocity, balance thresholds, and muscle power to create a customized home exercise program.'
+    },
+    image: '/images/576/23397232/confident-senior-male-doctor-with-a-stethoscope-representing-healthcare-professionalism-IpXVokk0utCvqHLjOqiT5Q-ynI_vHAgT7lkEtm41O_x0A.webp',
+    tags: ['Senior Health', 'Fall Prevention', 'Balance Training', 'Otago Protocol', 'Geriatric Physio'],
+    relatedServiceId: 'stroke-rehab'
+  },
+  {
+    id: 'article-12',
+    slug: 'postpartum-diastasis-recti-pelvic-floor-rehabilitation',
+    title: 'Postpartum Recovery: Restoring The Pelvic Floor, Healing Diastasis Recti & Relieving Pelvic Girdle Pain',
+    category: 'wellness-prevention',
+    categoryLabel: 'Wellness & Prevention',
+    readTime: '5 min read',
+    publishDate: 'Updated August 2026',
+    author: {
+      name: 'Dr. Ngozi Ibekwe',
+      role: 'Consultant Pediatric & Women’s Health Physiotherapist',
+      avatar: '/images/92,287x288+19+0/27300796/NgoziIbekwe-E5PzMF58VNTgFFLbIhOqCQ.webp'
+    },
+    summary: 'Pregnancy and childbirth place immense mechanical stress on the linea alba and pelvic hammock. Learn evidence-based diaphragmatic breathing, deep transverse abdominis activation, and pelvic girdle stabilization.',
+    keyTakeaways: [
+      'Diastasis Recti is the natural separation of the rectus abdominis muscles caused by hormone-induced stretching of the linea alba.',
+      'Traditional sit-ups and forward planks increase intra-abdominal pressure and worsen abdominal doming.',
+      'The "Deep Core Canister" (Diaphragm, Transverse Abdominis, Multifidus, and Pelvic Floor) must be retrained synchronously.',
+      'Pelvic girdle and sacroiliac (SI) joint pain respond rapidly to manual therapy and gluteal stabilizing exercises.'
+    ],
+    content: {
+      introduction: 'Bringing a child into the world is extraordinary, but pregnancy and delivery fundamentally alter the biomechanics of the pelvis, spine, and abdominal wall. Many mothers suffer in silence with back pain, urinary leakage when coughing or sneezing (stress incontinence), or abdominal separation (diastasis recti). Women’s health physiotherapy restores core synergy and functional strength.',
+      sections: [
+        {
+          heading: '1. Understanding & Assessing Diastasis Recti',
+          body: 'The linea alba connective tissue softens during pregnancy due to relaxin and estrogen hormones. Checking for an abdominal gap and tension generation helps guide safe postpartum recovery.',
+          actionableTips: [
+            'Avoid traditional crunches, sit-ups, and heavy lifting in the early postpartum period.',
+            'Practice rolling to your side ("log roll") before sitting up from bed to avoid straining your healing abdominal wall.'
+          ]
+        },
+        {
+          heading: '2. Synchronized Diaphragmatic Core Breathing',
+          body: 'As you inhale, your diaphragm and pelvic floor gently descend; as you exhale, they naturally lift and contract together.',
+          actionableTips: [
+            'Lie on your back with knees bent. Place one hand on your ribs and one on your lower belly.',
+            'Inhale deeply into the sides of your ribcage, allowing the belly and pelvic floor to relax.',
+            'Exhale gently through pursed lips while gently drawing your lower abdomen inward and lifting the pelvic floor.'
+          ]
+        },
+        {
+          heading: '3. Rebuilding Sacroiliac & Pelvic Girdle Stability',
+          body: 'Asymmetrical pelvic joint pain is common when walking or rolling over in bed. Targeted glute bridge progressions, clamshells, and bird-dog exercises stabilize the pelvic ring.'
+        }
+      ],
+      physioAdvice: 'Postpartum rehabilitation is essential whether you delivered vaginally or via Caesarean section. Specialized physical therapy restores your core strength and confidence.'
+    },
+    image: '/images/576/23397373/smiling-female-healthcare-professional-in-white-coat-holding-clipboard-indoors-Leg7p3ROcUngAhFbHVWjqQ-Lm_ioatRSCGN0qoRHe_D4A.webp',
+    tags: ['Postpartum Physio', 'Diastasis Recti', 'Pelvic Floor', 'Women Health', 'Core Rehabilitation'],
+    relatedServiceId: 'wellness-fitness'
   }
 ];
+
