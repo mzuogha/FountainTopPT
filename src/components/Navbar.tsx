@@ -42,43 +42,43 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, onOpenB
     <header className="sticky top-0 z-50 w-full transition-all duration-300">
       {/* Top Notification & Contact Bar */}
       <div className="bg-slate-900 dark:bg-slate-950 text-slate-200 text-xs sm:text-sm py-2 px-4 border-b border-slate-800 transition-colors">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center gap-4 flex-wrap">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3 sm:gap-4 overflow-hidden min-w-0">
             <a
               href={`tel:${CLINIC_INFO.phone1}`}
-              className="flex items-center gap-1.5 hover:text-teal-400 transition-colors font-medium"
+              className="flex items-center gap-1.5 hover:text-teal-400 transition-colors font-medium shrink-0"
             >
-              <Phone className="w-3.5 h-3.5 text-teal-400" />
+              <Phone className="w-3.5 h-3.5 text-teal-400 shrink-0" />
               <span>{CLINIC_INFO.phone1Formatted}</span>
             </a>
-            <span className="hidden sm:inline text-slate-600">|</span>
+            <span className="hidden sm:inline text-slate-600 shrink-0">|</span>
             <a
               href={`mailto:${CLINIC_INFO.email}`}
-              className="hidden sm:flex items-center gap-1.5 hover:text-teal-400 transition-colors font-medium"
+              className="hidden sm:flex items-center gap-1.5 hover:text-teal-400 transition-colors font-medium shrink-0"
             >
-              <Mail className="w-3.5 h-3.5 text-teal-400" />
+              <Mail className="w-3.5 h-3.5 text-teal-400 shrink-0" />
               <span>{CLINIC_INFO.email}</span>
             </a>
-            <span className="hidden md:inline text-slate-600">|</span>
-            <div className="hidden md:flex items-center gap-1.5 text-slate-300">
-              <MapPin className="w-3.5 h-3.5 text-teal-400" />
+            <span className="hidden lg:inline text-slate-600 shrink-0">|</span>
+            <div className="hidden lg:flex items-center gap-1.5 text-slate-300 shrink-0">
+              <MapPin className="w-3.5 h-3.5 text-teal-400 shrink-0" />
               <span className="truncate max-w-xs">Behind Stadium by MFM Junc., Asaba</span>
             </div>
-            <span className="hidden lg:inline text-slate-600">|</span>
-            <div className="hidden lg:flex items-center gap-1.5 text-slate-300">
-              <Clock className="w-3.5 h-3.5 text-teal-400" />
-              <span>Mon - Fri: 8am - 6pm • Sat: 9am - 3pm</span>
+            <span className="hidden xl:inline text-slate-600 shrink-0">|</span>
+            <div className="hidden xl:flex items-center gap-1.5 text-slate-300 shrink-0">
+              <Clock className="w-3.5 h-3.5 text-teal-400 shrink-0" />
+              <span className="whitespace-nowrap">Mon - Fri: 8am - 6pm • Sat: 9am - 3pm</span>
             </div>
           </div>
 
-          <div className="flex items-center gap-3 ml-auto">
+          <div className="flex items-center gap-3 shrink-0">
             <a
               href={CLINIC_INFO.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 bg-emerald-600/90 hover:bg-emerald-600 text-white px-2.5 py-0.5 rounded-full text-xs font-semibold transition shadow-xs"
+              className="inline-flex items-center gap-1.5 bg-emerald-600/90 hover:bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-semibold transition shadow-xs shrink-0 whitespace-nowrap"
             >
-              <MessageSquare className="w-3 h-3" />
+              <MessageSquare className="w-3.5 h-3.5 shrink-0" />
               <span>WhatsApp Us</span>
             </a>
           </div>
