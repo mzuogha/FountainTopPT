@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Allow: /services
+Allow: /health-tips
+Allow: /contact
+Allow: /images/
+
+# Disallow administrative/internal log files
+Disallow: /api/submissions.log
+
+# Sitemaps
+Sitemap: https://fountaintoppt.com/sitemap.xml

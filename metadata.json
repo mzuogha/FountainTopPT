@@ -1,0 +1,6 @@
+{
+  "name": "Fountain Top Physical Therapy",
+  "description": "Physical therapy clinic website with patient services, team profiles, and appointment inquiries.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
