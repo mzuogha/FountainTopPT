@@ -50,7 +50,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               onClick={() => onNavigate('services')}
               className="inline-flex items-center gap-2 text-teal-700 dark:text-teal-400 hover:text-teal-800 dark:hover:text-teal-300 font-bold text-sm sm:text-base group shrink-0 cursor-pointer"
             >
-              <span>Explore All 8 Treatments</span>
+              <span>Explore All Treatments</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </button>
           </div>

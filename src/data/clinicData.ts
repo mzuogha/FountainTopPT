@@ -30,6 +30,26 @@ export const CLINIC_INFO = {
 
 export const SERVICES: Service[] = [
   {
+    id: 'general-consultation',
+    title: 'General Consultation',
+    category: 'musculoskeletal',
+    categoryLabel: 'Initial Clinical Assessment',
+    shortDesc: 'Comprehensive one-on-one physiotherapy assessment, musculoskeletal diagnosis, pain evaluation, and customized treatment planning.',
+    fullDesc: 'Our General Consultation provides an in-depth clinical evaluation with a licensed senior physiotherapist. We conduct full postural assessments, joint mobility and muscle strength diagnostics, and orthopedic evaluations to accurately identify the root cause of your discomfort and design an individualized recovery plan.',
+    keyBenefits: [
+      'Comprehensive physical assessment and root-cause pain diagnosis',
+      'Personalized recovery roadmap and custom exercise prescription',
+      'Immediate symptom triage and clinical guidance',
+      'Guidance on in-clinic therapy schedules or convenient home visit options'
+    ],
+    commonConditions: ['General Joint & Body Aches', 'Uncertain Mobility Limitations', 'Postural Strain & Ergonomic Issues', 'Acute Muscle or Sports Sprains', 'Second Opinions & Treatment Planning'],
+    treatmentMethods: ['Comprehensive Biomechanical Assessment', 'Range of Motion & Strength Testing', 'Specialized Orthopedic / Neuro Screenings', 'Individualized Care Plan Design'],
+    sessionDuration: '30 – 45 mins',
+    image: '/images/1536/27300360/personalizedcare-Wxk09ZbG6vUP5F4-sNFIdA.webp',
+    iconName: 'Activity',
+    featured: true
+  },
+  {
     id: 'musculoskeletal',
     title: 'Musculoskeletal Physiotherapy',
     category: 'musculoskeletal',

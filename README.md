@@ -97,6 +97,7 @@ The application features 12 comprehensive, medical guides indexed with Schema.or
 
 ## 🩺 Specialized Rehabilitation Programs
 
+- **General Consultation & Initial Assessment** (`#general-consultation`) — *Default selection for new patients and diagnostic triage*
 - **Musculoskeletal & Orthopedic Physiotherapy** (`#musculoskeletal`)
 - **Neurological & Stroke Rehabilitation** (`#stroke-rehab`)
 - **Post-Surgical Management & Joint Replacement Rehab** (`#post-surgical`)
