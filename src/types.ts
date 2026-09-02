@@ -54,6 +54,9 @@ export interface FAQItem {
 export interface AppointmentFormData {
   fullName: string;
   phoneNumber: string;
+  email?: string;
+  bookingChannel?: 'email' | 'whatsapp';
+  isHomeVisit?: boolean;
   serviceId: string;
   specialistId?: string;
   preferredDate: string;

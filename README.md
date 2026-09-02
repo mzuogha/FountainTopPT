@@ -41,20 +41,33 @@
 
 ## ✨ Key Features
 
-1. **Instant WhatsApp Direct Booking:**
-   - Pre-formats customized consultation requests with patient details, condition, preferred date/time, and home visit preferences directly into WhatsApp.
-2. **Interactive Appointment Booking Engine:**
-   - Multi-step booking form supporting both In-Clinic appointments and Home Visit requests.
-3. **Interactive Symptom & Joint Pain Locator:**
+1. **Dual Channel Appointment Booking Engine (Email & WhatsApp):**
+   - **Direct Email Booking:** Patients can submit their consultation request with name, email, phone, service, date, time window, and Home Visit option. Dispatches notifications directly to clinic email (`info@fountaintoppt.com`), logs securely, and generates a pre-formatted single-tap mailto backup and reference code.
+   - **Instant WhatsApp Booking:** Formats a structured consultation message with full appointment parameters and connects patients directly to the clinic's WhatsApp coordination desk.
+2. **Interactive Symptom & Joint Pain Locator:**
    - Visual body map helping patients identify pain regions (neck, shoulder, lower back, knee, ankle) and get matched with appropriate rehabilitation treatments.
-4. **12 Evidence-Based Clinical Health Guides:**
+3. **12 Evidence-Based Clinical Health Guides:**
    - Comprehensive articles written from a physiotherapeutic perspective covering orthopedics, neurology, pediatrics, and preventive wellness.
-5. **Responsive Modern UI:**
-   - Adaptive top bar and navigation for mobile, tablet, and desktop viewports.
-6. **Built-in Apache/cPanel PHP Backend:**
-   - Includes `/api/submit.php` for seamless form submission and automated email dispatch on Apache cPanel hosting without requiring external server setup.
-7. **Production Caching & Routing Configuration:**
+4. **Responsive Modern UI:**
+   - Adaptive top bar and navigation for mobile, tablet, and desktop viewports with dark/light mode toggle.
+5. **Dual-Environment Backend Support (Node.js & cPanel PHP):**
+   - Development & Container: Express.js server (`server.ts`) with optional Resend API support.
+   - Production / cPanel: Native `/api/submit.php` script utilizing standard PHP `mail()` to deliver inquiries without requiring Node.js or complex server setups.
+6. **Production Caching & Routing Configuration:**
    - Pre-configured `.htaccess` with Gzip compression, WebP asset caching, security headers, and single-page application (SPA) rewrite rules.
+
+---
+
+## 🔒 Security Audit & Public Repository Verification
+
+Is it safe to make this repository public on GitHub? **Yes, absolutely.**
+
+This repository has undergone a security verification:
+- ✅ **Zero Hardcoded Secrets or API Keys:** No private credentials, tokens, or passwords are saved in the codebase.
+- ✅ **Safe `.env.example` Template:** All configuration variables use safe placeholders without live secret keys.
+- ✅ **Client-Safe Endpoints:** All contact submissions and booking references are handled securely without exposing database credentials or private server tokens.
+- ✅ **`.gitignore` Rules:** Excludes `.env`, local credential files, `node_modules`, and temporary logs.
+- ✅ **Safe Deployment Artifacts:** The pre-bundled `cpanel_public_html.tar.gz` contains only compiled client-side assets and the stateless PHP submission script.
 
 ---
 

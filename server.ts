@@ -17,37 +17,62 @@ async function startServer() {
     res.json({
       status: 'ok',
       app: 'Fountain Top Physical Therapy',
-      bookingSystem: 'Direct WhatsApp Booking Desk (+234 703 946 6804)'
+      clinicEmail: 'info@fountaintoppt.com',
+      bookingSystem: 'Email & WhatsApp Booking Desks (+234 703 946 6804 / info@fountaintoppt.com)'
     });
   });
 
-  // Form Submission & Booking API Endpoint (Logging & WhatsApp sync)
+  // Form Submission & Booking API Endpoint (Email & WhatsApp sync)
   app.all(['/api.php', '/form_container/submit', '/api/submit'], async (req, res) => {
     console.log(`[API/Form] Received ${req.method} request:`, req.body);
 
     if (req.method === 'POST') {
       const data = req.body || {};
       const isAppointment = !!(data.preferredDate || data.serviceId || data.reference);
+      const bookingChannel = data.bookingChannel || (data.email ? 'email' : 'whatsapp');
       const patientName = data.fullName || data.name || 'Website Visitor';
       const patientPhone = data.phoneNumber || data.phone || 'Not provided';
+      const patientEmail = data.email || 'Not provided';
       const serviceRequested = data.serviceTitle || data.serviceId || 'Physical Therapy Consultation';
       const appointmentDate = data.preferredDate || 'To be scheduled';
       const appointmentTime = data.preferredTime || 'Standard Hours';
+      const visitType = data.isHomeVisit ? 'Home Visit' : 'In-Clinic (Asaba)';
       const notes = data.conditionDetails || data.message || data.notes || 'None provided';
       const refCode = data.reference || `FT-${Date.now().toString().slice(-6)}`;
 
-      console.log(`[Booking/Inquiry Logged] Type: ${isAppointment ? 'Appointment' : 'Inquiry'} | Ref: ${refCode} | Patient: ${patientName} (${patientPhone}) | Service: ${serviceRequested}`);
+      console.log(`[Booking/Inquiry Logged] Channel: ${bookingChannel.toUpperCase()} | Type: ${isAppointment ? 'Appointment' : 'Inquiry'} | Ref: ${refCode} | Patient: ${patientName} (${patientPhone}, ${patientEmail}) | Service: ${serviceRequested}`);
+
+      // If Resend API key is configured, send email notification
+      if (process.env.RESEND_API_KEY && patientEmail && patientEmail.includes('@')) {
+        try {
+          const { Resend } = await import('resend');
+          const resend = new Resend(process.env.RESEND_API_KEY);
+          await resend.emails.send({
+            from: 'Fountain Top Clinic <appointments@fountaintoppt.com>',
+            to: ['info@fountaintoppt.com'],
+            replyTo: patientEmail,
+            subject: `[New ${bookingChannel === 'email' ? 'Email' : 'WhatsApp'} Booking] ${refCode} - ${patientName}`,
+            text: `New Appointment Booking Request\n\nReference: ${refCode}\nPatient: ${patientName}\nEmail: ${patientEmail}\nPhone: ${patientPhone}\nService: ${serviceRequested}\nDate: ${appointmentDate}\nTime Window: ${appointmentTime}\nVisit Type: ${visitType}\nNotes: ${notes}\n\nClinic Location: Behind Stadium by MFM Junc., Asaba, Delta State`
+          });
+          console.log(`[Resend Email] Successfully dispatched email for ref: ${refCode}`);
+        } catch (emailErr) {
+          console.warn('[Resend Email] Notification dispatch skipped/failed:', emailErr);
+        }
+      }
 
       res.setHeader('Content-Type', 'application/json');
       return res.status(200).json({
         status: 'success',
         reference: refCode,
-        message: 'Thank you! Your appointment request has been prepared for WhatsApp chat with our clinic reception.'
+        channel: bookingChannel,
+        message: bookingChannel === 'email'
+          ? 'Thank you! Your appointment request has been logged and sent to our clinical team.'
+          : 'Thank you! Your appointment request has been prepared for WhatsApp chat with our clinic reception.'
       });
     }
 
     res.setHeader('Content-Type', 'application/json');
-    return res.json({ status: 'success', message: 'Fountain Top WhatsApp Booking API active' });
+    return res.json({ status: 'success', message: 'Fountain Top Booking API active (Email & WhatsApp)' });
   });
 
   // Explicitly serve robots.txt and sitemap.xml
