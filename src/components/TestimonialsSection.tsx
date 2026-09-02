@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Quote, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Quote, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { TESTIMONIALS } from '../data/clinicData';
 
 export const TestimonialsSection: React.FC = () => {
@@ -21,7 +21,7 @@ export const TestimonialsSection: React.FC = () => {
         {/* Header */}
         <div className="text-center space-y-4 max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-1.5 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 px-3.5 py-1 rounded-full text-xs font-bold tracking-wide border border-emerald-200/60 dark:border-emerald-800/60">
-            <Sparkles className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
             <span>Verified Patient Outcomes</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">

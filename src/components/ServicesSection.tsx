@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Activity, Clock, ArrowRight, ShieldCheck, Check, Sparkles } from 'lucide-react';
+import { Activity, Clock, ArrowRight, ShieldCheck, Check } from 'lucide-react';
 import { SERVICES } from '../data/clinicData';
 import { Service, ServiceCategory } from '../types';
 import { ServiceModal } from './ServiceModal';

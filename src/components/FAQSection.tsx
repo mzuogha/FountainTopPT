@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HelpCircle, ChevronDown, Search, Sparkles } from 'lucide-react';
+import { HelpCircle, ChevronDown, Search } from 'lucide-react';
 import { FAQS } from '../data/clinicData';
 
 export const FAQSection: React.FC = () => {

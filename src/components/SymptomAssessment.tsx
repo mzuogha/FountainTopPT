@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Activity, ArrowRight, RotateCcw, Check, Sparkles, AlertCircle, Calendar, ShieldCheck } from 'lucide-react';
+import { Activity, ArrowRight, RotateCcw, Check, AlertCircle, Calendar, ShieldCheck } from 'lucide-react';
 import { SERVICES } from '../data/clinicData';
 
 interface SymptomAssessmentProps {
@@ -244,7 +244,7 @@ export const SymptomAssessment: React.FC<SymptomAssessmentProps> = ({ onSelectSe
                   onClick={() => setStep(4)}
                   className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold px-7 py-3 rounded-xl transition shadow-lg cursor-pointer"
                 >
-                  <Sparkles className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4" />
                   <span>View Recommended Protocol</span>
                 </button>
               </div>

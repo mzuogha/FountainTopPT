@@ -7,7 +7,6 @@ import {
   ArrowRight,
   ShieldCheck,
   ChevronRight,
-  Sparkles,
   Phone,
   MessageSquare,
   Calendar,

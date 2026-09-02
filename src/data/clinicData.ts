@@ -166,7 +166,7 @@ export const SERVICES: Service[] = [
     treatmentMethods: ['Clinical Deep Tissue Therapy', 'Myofascial Trigger Point Release', 'Swedish Therapeutic Strokes', 'Aromatherapy & Muscle Warming'],
     sessionDuration: '60 – 90 mins',
     image: '/images/547/27303071/FullBodyMassage-q644JnCMDKrGVc3TTr80ng.webp',
-    iconName: 'Sparkles',
+    iconName: 'Heart',
     featured: false
   },
   {

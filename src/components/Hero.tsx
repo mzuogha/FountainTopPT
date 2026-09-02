@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, Phone, Activity, Sparkles, Award, CheckCircle2, ChevronRight } from 'lucide-react';
+import { Calendar, Phone, Activity, Award, CheckCircle2, ChevronRight } from 'lucide-react';
 import { CLINIC_INFO } from '../data/clinicData';
 
 interface HeroProps {
@@ -21,7 +21,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onScrollToChecker }) 
           <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
             {/* Top Pill Badge */}
             <div className="inline-flex items-center gap-2 bg-teal-950/80 border border-teal-500/30 text-teal-300 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide backdrop-blur-sm">
-              <Sparkles className="w-4 h-4 text-teal-400 animate-pulse" />
+              <Activity className="w-4 h-4 text-teal-400" />
               <span>Premier Physical Therapy & Rehabilitation Clinic in Asaba</span>
             </div>
 

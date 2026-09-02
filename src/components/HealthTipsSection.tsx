@@ -4,7 +4,6 @@ import {
   Clock, 
   Search, 
   ArrowRight, 
-  Sparkles, 
   CheckCircle2, 
   User, 
   ChevronRight, 
@@ -89,7 +88,7 @@ export const HealthTipsSection: React.FC<HealthTipsSectionProps> = ({ onOpenBook
         <div className="mb-14">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-teal-600" />
+              <Activity className="w-4 h-4 text-teal-600" />
               <span>Quick Daily Physio Bites</span>
             </h3>
             <span className="text-xs text-slate-500 font-medium">Daily Habits for Spine & Mobility</span>

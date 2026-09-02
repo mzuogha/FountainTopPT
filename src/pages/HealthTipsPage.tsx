@@ -4,7 +4,6 @@ import {
   Search,
   Clock,
   ArrowRight,
-  Sparkles,
   ChevronRight,
   Share2,
   Calendar,
@@ -12,7 +11,8 @@ import {
   MessageSquare,
   CheckCircle2,
   Bookmark,
-  User
+  User,
+  Activity
 } from 'lucide-react';
 import { HEALTH_ARTICLES, QUICK_HEALTH_TIPS } from '../data/healthArticles';
 import { HealthArticle, Page } from '../types';
@@ -123,7 +123,7 @@ export const HealthTipsPage: React.FC<HealthTipsPageProps> = ({ onOpenBooking, o
       {/* 3. Quick Daily Physio Tips Strip */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
         <div className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3 flex items-center gap-1.5">
-          <Sparkles className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
+          <Activity className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
           <span>Quick Daily Physio Advice for Everyday Health</span>
         </div>
 

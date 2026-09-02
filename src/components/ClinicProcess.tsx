@@ -1,5 +1,5 @@
 import React from 'react';
-import { ClipboardCheck, Stethoscope, Layers, TrendingUp, Sparkles, CheckCircle2 } from 'lucide-react';
+import { ClipboardCheck, Stethoscope, Layers, TrendingUp, Activity, CheckCircle2 } from 'lucide-react';
 import { CLINIC_PROCESS } from '../data/clinicData';
 
 export const ClinicProcess: React.FC = () => {
@@ -27,7 +27,7 @@ export const ClinicProcess: React.FC = () => {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-1.5 bg-teal-950 text-teal-300 px-3.5 py-1 rounded-full text-xs font-bold tracking-wide border border-teal-800">
-            <Sparkles className="w-3.5 h-3.5 text-teal-400" />
+            <Activity className="w-3.5 h-3.5 text-teal-400" />
             <span>Structured Rehabilitation Methodology</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">

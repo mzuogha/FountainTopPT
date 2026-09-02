@@ -9,7 +9,6 @@ import {
   CheckCircle2,
   AlertCircle,
   ChevronRight,
-  Sparkles,
   Calendar,
   ShieldCheck,
   ExternalLink
@@ -236,7 +235,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenBooking, onNavig
             <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-10 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-6">
               <div className="space-y-2">
                 <div className="inline-flex items-center gap-1.5 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 px-3 py-0.5 rounded-full text-xs font-bold">
-                  <Sparkles className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
+                  <MessageSquare className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                   <span>Direct WhatsApp Inquiry</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">

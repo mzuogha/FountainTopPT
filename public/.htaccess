@@ -1,3 +1,9 @@
+# Fountain Top Physiotherapy & Fitness Clinic - Production Apache Configuration
+# Disables directory browsing, enforces security headers, enables caching and SPA routing
+
+# 1. Disable Directory Indexing
+Options -Indexes
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
@@ -14,8 +20,8 @@
   RewriteRule ^ index.html [L]
 </IfModule>
 
-# Security: Block direct access to hidden files, environment files, logs, and metadata
-<FilesMatch "(^\.|\.log$|\.env|\.git|\.md$|package\.json|tsconfig\.json)">
+# 2. Security: Block direct access to hidden files, environment files, logs, and metadata
+<FilesMatch "(^\.|\.log$|\.env|\.git|\.md$|package\.json|tsconfig\.json|composer\.json)">
   <IfModule mod_authz_core.c>
     Require all denied
   </IfModule>
@@ -25,7 +31,16 @@
   </IfModule>
 </FilesMatch>
 
-# Enable Browser Caching for Images, WebP, Fonts and Assets
+# 3. Security Headers
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set X-XSS-Protection "1; mode=block"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+# 4. Enable Browser Caching for Images, WebP, Fonts and Assets
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresDefault "access plus 1 month"
@@ -45,7 +60,7 @@
   </FilesMatch>
 </IfModule>
 
-# Enable GZIP Deflate Compression
+# 5. Enable GZIP Deflate Compression
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/plain
   AddOutputFilterByType DEFLATE text/html
@@ -58,3 +73,4 @@
   AddOutputFilterByType DEFLATE application/x-javascript
   AddOutputFilterByType DEFLATE image/svg+xml
 </IfModule>
+

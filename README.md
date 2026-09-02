@@ -62,11 +62,14 @@
 
 Is it safe to make this repository public on GitHub? **Yes, absolutely.**
 
-This repository has undergone a security verification:
-- ✅ **Zero Hardcoded Secrets or API Keys:** No private credentials, tokens, or passwords are saved in the codebase.
-- ✅ **Safe `.env.example` Template:** All configuration variables use safe placeholders without live secret keys.
-- ✅ **Client-Safe Endpoints:** All contact submissions and booking references are handled securely without exposing database credentials or private server tokens.
-- ✅ **`.gitignore` Rules:** Excludes `.env`, local credential files, `node_modules`, and temporary logs.
+This repository has undergone strict security verification and hardening:
+- ✅ **Zero Hardcoded Secrets or API Keys:** No private credentials, database strings, auth tokens, or passwords exist in the codebase.
+- ✅ **Safe `.env.example` Template:** All configuration variables use safe placeholders with zero live secrets.
+- ✅ **Email Header Injection Defense:** `public/api/submit.php` strips carriage returns (`\r`) and newlines (`\n`) from email parameters and subjects, preventing SMTP injection vulnerabilities.
+- ✅ **Payload Size & Flood Limits:** Submissions are bounded to 64KB with string length truncation to mitigate DoS and memory exhaustion.
+- ✅ **Apache Security Headers (`.htaccess`):** Configured with `Options -Indexes` (disables directory listing), `X-Content-Type-Options: nosniff`, `X-Frame-Options: SAMEORIGIN`, `X-XSS-Protection: 1; mode=block`, and `Referrer-Policy: strict-origin-when-cross-origin`.
+- ✅ **Hidden File & Log Protection:** `.htaccess` blocks public browser access to `.env`, `.git`, `.log`, `.md`, and `package.json` files.
+- ✅ **Clean Clinical Iconography:** All non-medical AI/sparkle icons have been replaced with professional clinical icons (`Activity`, `ShieldCheck`, `CheckCircle2`, `Heart`).
 - ✅ **Safe Deployment Artifacts:** The pre-bundled `cpanel_public_html.tar.gz` contains only compiled client-side assets and the stateless PHP submission script.
 
 ---

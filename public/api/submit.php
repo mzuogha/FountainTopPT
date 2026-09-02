@@ -7,27 +7,58 @@ header('Content-Type: application/json; charset=UTF-8');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
+header('X-Content-Type-Options: nosniff');
+header('X-Frame-Options: SAMEORIGIN');
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit;
 }
 
+// Payload size limit check (max 64KB)
 $rawInput = file_get_contents('php://input');
+if (strlen($rawInput) > 65536) {
+    http_response_code(413);
+    echo json_encode(['status' => 'error', 'message' => 'Payload too large']);
+    exit;
+}
+
 $data = json_decode($rawInput, true) ?: $_POST;
+
+// Helper to strip CR/LF and prevent header injection
+function sanitize_header_value($val) {
+    return preg_replace('/[\r\n\t]+/', ' ', trim((string)$val));
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $isAppointment = !empty($data['preferredDate']) || !empty($data['serviceId']) || !empty($data['reference']);
-    $bookingChannel = !empty($data['bookingChannel']) ? strtolower(trim($data['bookingChannel'])) : (!empty($data['email']) ? 'email' : 'whatsapp');
-    $patientName = htmlspecialchars(trim($data['fullName'] ?? $data['name'] ?? 'Website Visitor'), ENT_QUOTES, 'UTF-8');
-    $patientPhone = htmlspecialchars(trim($data['phoneNumber'] ?? $data['phone'] ?? 'Not provided'), ENT_QUOTES, 'UTF-8');
-    $patientEmail = filter_var(trim($data['email'] ?? ''), FILTER_VALIDATE_EMAIL) ? trim($data['email']) : '';
-    $serviceRequested = htmlspecialchars(trim($data['serviceTitle'] ?? $data['serviceId'] ?? 'Physical Therapy Consultation'), ENT_QUOTES, 'UTF-8');
-    $appointmentDate = htmlspecialchars(trim($data['preferredDate'] ?? 'To be scheduled'), ENT_QUOTES, 'UTF-8');
-    $appointmentTime = htmlspecialchars(trim($data['preferredTime'] ?? 'Standard Hours'), ENT_QUOTES, 'UTF-8');
+    $bookingChannel = !empty($data['bookingChannel']) ? strtolower(sanitize_header_value($data['bookingChannel'])) : (!empty($data['email']) ? 'email' : 'whatsapp');
+    
+    $rawName = sanitize_header_value($data['fullName'] ?? $data['name'] ?? 'Website Visitor');
+    $patientName = htmlspecialchars(mb_substr($rawName, 0, 150), ENT_QUOTES, 'UTF-8');
+    
+    $rawPhone = sanitize_header_value($data['phoneNumber'] ?? $data['phone'] ?? 'Not provided');
+    $patientPhone = htmlspecialchars(mb_substr($rawPhone, 0, 50), ENT_QUOTES, 'UTF-8');
+    
+    $cleanEmail = sanitize_header_value($data['email'] ?? '');
+    $patientEmail = filter_var($cleanEmail, FILTER_VALIDATE_EMAIL) ? $cleanEmail : '';
+    
+    $rawService = sanitize_header_value($data['serviceTitle'] ?? $data['serviceId'] ?? 'Physical Therapy Consultation');
+    $serviceRequested = htmlspecialchars(mb_substr($rawService, 0, 150), ENT_QUOTES, 'UTF-8');
+    
+    $rawDate = sanitize_header_value($data['preferredDate'] ?? 'To be scheduled');
+    $appointmentDate = htmlspecialchars(mb_substr($rawDate, 0, 50), ENT_QUOTES, 'UTF-8');
+    
+    $rawTime = sanitize_header_value($data['preferredTime'] ?? 'Standard Hours');
+    $appointmentTime = htmlspecialchars(mb_substr($rawTime, 0, 50), ENT_QUOTES, 'UTF-8');
+    
     $visitType = !empty($data['isHomeVisit']) ? 'Home Visit' : 'In-Clinic Consultation (Asaba)';
-    $notes = htmlspecialchars(trim($data['conditionDetails'] ?? $data['message'] ?? $data['notes'] ?? 'None provided'), ENT_QUOTES, 'UTF-8');
-    $refCode = htmlspecialchars(trim($data['reference'] ?? ('FT-' . rand(100000, 999999))), ENT_QUOTES, 'UTF-8');
+    
+    $rawNotes = trim((string)($data['conditionDetails'] ?? $data['message'] ?? $data['notes'] ?? 'None provided'));
+    $notes = htmlspecialchars(mb_substr($rawNotes, 0, 3000), ENT_QUOTES, 'UTF-8');
+    
+    $rawRef = sanitize_header_value($data['reference'] ?? ('FT-' . rand(100000, 999999)));
+    $refCode = htmlspecialchars(mb_substr($rawRef, 0, 30), ENT_QUOTES, 'UTF-8');
     $timestamp = date('Y-m-d H:i:s');
 
     // Secure local logging
@@ -50,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Email dispatch to clinic desk
     $to = 'info@fountaintoppt.com';
-    $subject = "[New " . ($bookingChannel === 'email' ? 'Email' : 'WhatsApp') . " Booking] {$refCode} - {$patientName}";
+    $safeSubject = sanitize_header_value("[New " . ($bookingChannel === 'email' ? 'Email' : 'WhatsApp') . " Booking] {$refCode} - {$patientName}");
     
     $emailBody = "========================================\n";
     $emailBody .= " FOUNTAIN TOP PHYSIOTHERAPY CLINIC\n";
@@ -76,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $headers .= "X-Mailer: PHP/" . phpversion();
 
     // Attempt to send email
-    @mail($to, $subject, $emailBody, $headers);
+    @mail($to, $safeSubject, $emailBody, $headers);
 
     echo json_encode([
         'status' => 'success',
@@ -90,5 +121,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 echo json_encode(['status' => 'success', 'message' => 'Fountain-Top Booking API is active (Email & WhatsApp).']);
-
-
