@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $domain = get_sender_domain();
         $fromEmail = 'info@' . $domain;
 
-        $testRecipients = ['info@fountaintoppt.com', 'mzuogha@gmail.com'];
+        $testRecipients = ['info@fountaintoppt.com'];
         $testSubject = "[Diagnostic Test] Fountain-Top Physiotherapy Notification Mailer";
         $testTime = date('D, M j, Y \a\t g:i A');
         
@@ -239,15 +239,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     @file_put_contents($jsonFile, json_encode($existing, JSON_PRETTY_PRINT), LOCK_EX);
 
-    // 2. Email Construction & Dual-Dispatch
+    // 2. Email Construction & Clinic Desk Dispatch
     $domain = get_sender_domain();
     $fromEmail = 'info@' . $domain;
     $envelopeFrom = $fromEmail;
 
-    // Dispatch to both official clinic desk and management inbox
+    // Dispatch to official clinic desk inbox
     $adminRecipients = [
-        'info@fountaintoppt.com',
-        'mzuogha@gmail.com'
+        'info@fountaintoppt.com'
     ];
 
     $emailTypeLabel = $isAppointment ? 'APPOINTMENT BOOKING REQUEST' : 'GENERAL PATIENT INQUIRY';

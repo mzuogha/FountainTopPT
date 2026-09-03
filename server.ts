@@ -68,19 +68,19 @@ async function startServer() {
           const emailHtml = generateAdminEmailHtml(emailPayload);
           const emailText = `New Appointment Booking Request\n\nReference: ${refCode}\nPatient: ${patientName}\nPhone: ${patientPhone}\nEmail: ${patientEmail}\nService: ${serviceRequested}\nDate: ${appointmentDate}\nTime Window: ${appointmentTime}\nVisit Type: ${visitType}\nNotes: ${notes}\n\nClinic: Behind Stadium by MFM Junc., Asaba, Delta State\nTel: 07039466804 / 09016120596`;
 
-          // Send to clinical desk and management
+          // Send to clinical desk
           await resend.emails.send({
             from: 'Fountain-Top Clinic <appointments@fountaintoppt.com>',
-            to: ['info@fountaintoppt.com', 'mzuogha@gmail.com'],
+            to: ['info@fountaintoppt.com'],
             replyTo: patientEmail && patientEmail.includes('@') ? patientEmail : 'info@fountaintoppt.com',
             subject: emailSubject,
             html: emailHtml,
             text: emailText
           });
-          console.log(`[Resend Email] Successfully dispatched rich HTML email for ref: ${refCode} to clinic desk and management`);
+          console.log(`[Resend Email] Successfully dispatched rich HTML email for ref: ${refCode} to clinic desk`);
 
           // Send confirmation receipt to patient if valid email provided
-          if (patientEmail && patientEmail.includes('@') && !['info@fountaintoppt.com', 'mzuogha@gmail.com'].includes(patientEmail.toLowerCase())) {
+          if (patientEmail && patientEmail.includes('@') && patientEmail.toLowerCase() !== 'info@fountaintoppt.com') {
             try {
               await resend.emails.send({
                 from: 'Fountain-Top Physiotherapy <appointments@fountaintoppt.com>',
