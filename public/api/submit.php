@@ -59,13 +59,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $fromEmail = 'info@' . $domain;
 
         $testRecipients = ['info@fountaintoppt.com', 'mzuogha@gmail.com'];
-        $testSubject = "[Diagnostic Test] Fountain-Top Physiotherapy cPanel Mailer";
-        $testBody = "This is an automated test from the Fountain-Top Physiotherapy API at " . date('Y-m-d H:i:s') . "\n";
-        $testBody .= "Host: {$domain}\n";
-        $testBody .= "Sendmail Path: {$sendmailPath}\n";
-        $testBody .= "Mail Function Enabled: " . ($mailAvailable ? 'YES' : 'NO') . "\n";
+        $testSubject = "[Diagnostic Test] Fountain-Top Physiotherapy Notification Mailer";
+        $testTime = date('D, M j, Y \a\t g:i A');
+        
+        $testHtml = '<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Diagnostic Test</title></head>
+<body style="margin: 0; padding: 24px 0; background-color: #f1f5f9; font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif; color: #1e293b;">
+<center>
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+    <tr>
+      <td style="background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%); padding: 28px; text-align: left; color: #ffffff;">
+        <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #ccfbf1; margin-bottom: 6px;">
+          SYSTEM HEALTH & MAIL VERIFICATION
+        </div>
+        <h2 style="margin: 0 0 6px 0; font-size: 22px; color: #ffffff;">Fountain-Top Physiotherapy Clinic</h2>
+        <p style="margin: 0; font-size: 13px; color: #99f6e4;">Mailer Subsystem Active &bull; Asaba, Delta State</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding: 24px;">
+        <p style="font-size: 15px; font-weight: 700; color: #0f766e; margin-top: 0;">&#10004; Notification Subsystem Verified</p>
+        <p style="font-size: 14px; line-height: 1.6; color: #334155;">
+          This diagnostic notification confirms that your web hosting mail transport is properly configured and successfully dispatching HTML patient notifications to clinic desks.
+        </p>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; margin: 18px 0; padding: 14px;">
+          <tr>
+            <td style="padding: 6px 12px; font-size: 13px; color: #64748b; font-weight: 600; width: 40%;">Sender Domain:</td>
+            <td style="padding: 6px 12px; font-size: 14px; font-weight: 700; color: #0f172a;">' . htmlspecialchars($domain) . '</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px 12px; font-size: 13px; color: #64748b; font-weight: 600;">Sender Address:</td>
+            <td style="padding: 6px 12px; font-size: 14px; font-weight: 700; color: #0f172a;">' . htmlspecialchars($fromEmail) . '</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px 12px; font-size: 13px; color: #64748b; font-weight: 600;">PHP Engine:</td>
+            <td style="padding: 6px 12px; font-size: 14px; color: #0f172a;">PHP ' . phpversion() . '</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px 12px; font-size: 13px; color: #64748b; font-weight: 600;">Timestamp:</td>
+            <td style="padding: 6px 12px; font-size: 14px; color: #0f172a;">' . htmlspecialchars($testTime) . '</td>
+          </tr>
+        </table>
+        <div style="background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #166534;">
+          <strong>Clinic Contacts:</strong> 1, Nwanze Obi Odogwu Street, Behind Stephen Keshi Stadium by MFM Junction, Asaba &bull; 07039466804 / 09016120596
+        </div>
+      </td>
+    </tr>
+  </table>
+</center>
+</body>
+</html>';
 
-        $testHeaders = "From: Fountain Top Clinic <{$fromEmail}>\r\n" .
+        $testHeaders = "MIME-Version: 1.0\r\n" .
+                       "Content-Type: text/html; charset=UTF-8\r\n" .
+                       "From: Fountain Top Clinic <{$fromEmail}>\r\n" .
                        "Reply-To: {$fromEmail}\r\n" .
                        "X-Mailer: PHP/" . phpversion();
 
@@ -73,9 +121,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         foreach ($testRecipients as $rcpt) {
             $sent = false;
             if ($mailAvailable) {
-                $sent = @mail($rcpt, $testSubject, $testBody, $testHeaders, "-f " . $fromEmail);
+                $sent = @mail($rcpt, $testSubject, $testHtml, $testHeaders, "-f " . $fromEmail);
                 if (!$sent) {
-                    $sent = @mail($rcpt, $testSubject, $testBody, $testHeaders);
+                    $sent = @mail($rcpt, $testSubject, $testHtml, $testHeaders);
                 }
             }
             $results[$rcpt] = $sent ? 'Sent successfully' : 'Failed to dispatch';
@@ -202,68 +250,219 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'mzuogha@gmail.com'
     ];
 
-    $emailTypeLabel = $isAppointment ? 'APPOINTMENT BOOKING' : 'GENERAL INQUIRY';
+    $emailTypeLabel = $isAppointment ? 'APPOINTMENT BOOKING REQUEST' : 'GENERAL PATIENT INQUIRY';
     $emailSubject = clean_header("[{$emailTypeLabel}] Ref: {$refCode} - {$patientName} ({$serviceRequested})");
 
-    // Clean, responsive HTML Email for Clinic Administration
+    $cleanPhone = preg_replace('/[^0-9]/', '', $patientPhone);
+    $waNumber = $cleanPhone;
+    if (strpos($waNumber, '0') === 0) {
+        $waNumber = '234' . substr($waNumber, 1);
+    } elseif (strpos($waNumber, '234') !== 0 && strlen($waNumber) === 10) {
+        $waNumber = '234' . $waNumber;
+    }
+    $waUrl = 'https://wa.me/' . $waNumber . '?text=' . urlencode("Hello {$patientName}, this is Fountain-Top Physiotherapy Clinic in Asaba regarding your booking request ({$refCode}) for {$serviceRequested}.");
+
+    // Executive Medical-Grade HTML Email for Clinic Administration
     $htmlEmail = '<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>' . htmlspecialchars($emailSubject) . '</title>
 <style>
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f1f5f9; margin: 0; padding: 20px; color: #1e293b; }
-  .card { max-width: 620px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-  .header { background: linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #115e59 100%); color: #ffffff; padding: 28px 24px; text-align: left; }
-  .header h1 { margin: 0 0 6px 0; font-size: 20px; font-weight: 800; letter-spacing: -0.02em; }
-  .header p { margin: 0; font-size: 13px; opacity: 0.9; color: #ccfbf1; }
-  .badge { display: inline-block; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); padding: 4px 10px; border-radius: 9999px; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-top: 10px; letter-spacing: 0.05em; }
-  .content { padding: 24px; }
-  .info-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-  .info-table th, .info-table td { padding: 12px 10px; text-align: left; border-bottom: 1px solid #f1f5f9; font-size: 14px; }
-  .info-table th { color: #64748b; font-weight: 600; width: 38%; }
-  .info-table td { color: #0f172a; font-weight: 600; }
-  .notes-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; margin: 16px 0; font-size: 14px; line-height: 1.6; color: #334155; }
-  .actions { text-align: center; padding: 18px 0 10px 0; }
-  .btn { display: inline-block; padding: 12px 22px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 14px; margin: 4px 6px; }
-  .btn-call { background: #0d9488; color: #ffffff !important; }
-  .btn-wa { background: #16a34a; color: #ffffff !important; }
-  .footer { background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 16px 24px; font-size: 12px; color: #64748b; text-align: center; }
+  body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+  table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+  body { margin: 0; padding: 0; background-color: #f1f5f9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  @media screen and (max-width: 600px) {
+    .email-container { width: 100% !important; border-radius: 0 !important; }
+    .btn-cell { display: block !important; padding: 4px 0 !important; }
+  }
 </style>
 </head>
-<body>
-<div class="card">
-  <div class="header">
-    <h1>Fountain-Top Physiotherapy & Fitness Clinic</h1>
-    <p>Asaba, Delta State &bull; Behind Stephen Keshi Stadium by MFM Junction</p>
-    <div class="badge">' . htmlspecialchars($emailTypeLabel) . ' (Ref: ' . htmlspecialchars($refCode) . ')</div>
+<body style="margin: 0; padding: 24px 0; background-color: #f1f5f9; color: #1e293b;">
+<center>
+  <div style="display: none; max-height: 0px; overflow: hidden; font-size: 1px; line-height: 1px; color: #fff; opacity: 0;">
+    New patient ' . htmlspecialchars($emailTypeLabel) . ': ' . htmlspecialchars($patientName) . ' (' . htmlspecialchars($serviceRequested) . ') &bull; Ref: ' . htmlspecialchars($refCode) . '
   </div>
-  <div class="content">
-    <table class="info-table">
-      <tr><th>Patient Full Name</th><td><strong>' . htmlspecialchars($patientName) . '</strong></td></tr>
-      <tr><th>Phone / WhatsApp</th><td><a href="tel:' . urlencode($patientPhone) . '" style="color:#0d9488; text-decoration:none;">' . htmlspecialchars($patientPhone) . '</a></td></tr>
-      <tr><th>Email Address</th><td>' . ($patientEmail ? '<a href="mailto:' . htmlspecialchars($patientEmail) . '" style="color:#0d9488;">' . htmlspecialchars($patientEmail) . '</a>' : '<span style="color:#94a3b8;">Not provided</span>') . '</td></tr>
-      <tr><th>Service Requested</th><td><span style="color:#0f766e; font-weight:700;">' . htmlspecialchars($serviceRequested) . '</span></td></tr>
-      <tr><th>Preferred Date</th><td>' . htmlspecialchars($appointmentDate) . '</td></tr>
-      <tr><th>Preferred Time</th><td>' . htmlspecialchars($appointmentTime) . '</td></tr>
-      <tr><th>Consultation Format</th><td>' . htmlspecialchars($visitType) . '</td></tr>
-      <tr><th>Preferred Channel</th><td>' . strtoupper(htmlspecialchars($bookingChannel)) . '</td></tr>
-      <tr><th>Submission Time</th><td>' . htmlspecialchars($dateFormatted) . '</td></tr>
-    </table>
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 640px; margin: 0 auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px -5px rgba(15,23,42,0.08); border: 1px solid #e2e8f0;" class="email-container">
+    
+    <!-- Top Branding Header -->
+    <tr>
+      <td style="background: linear-gradient(135deg, #0f766e 0%, #0d9488 60%, #115e59 100%); padding: 32px 28px; text-align: left; color: #ffffff;">
+        <div style="display: inline-block; background-color: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 8px; padding: 4px 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #ccfbf1; margin-bottom: 8px;">
+          CLINICAL DESK ALERT
+        </div>
+        <h1 style="margin: 0 0 6px 0; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.25; color: #ffffff;">
+          Fountain-Top Physiotherapy Clinic
+        </h1>
+        <p style="margin: 0; font-size: 13px; color: #99f6e4; line-height: 1.4;">
+          Behind Stephen Keshi Stadium by MFM Junction &bull; Asaba, Delta State
+        </p>
+      </td>
+    </tr>
 
-    <div style="font-weight:700; font-size:13px; color:#475569; margin-top:16px;">Condition Symptoms / Notes:</div>
-    <div class="notes-box">' . nl2br(htmlspecialchars($notes)) . '</div>
+    <!-- Status & Reference Pill Strip -->
+    <tr>
+      <td style="background-color: #f8fafc; border-bottom: 1px solid #e2e8f0; padding: 14px 28px;">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+          <tr>
+            <td style="font-size: 13px; font-weight: 700; color: #0f766e; text-transform: uppercase; letter-spacing: 0.04em;">
+              &#9679; ' . htmlspecialchars($emailTypeLabel) . '
+            </td>
+            <td align="right" style="font-size: 13px; font-weight: 800; color: #334155; font-family: monospace;">
+              REF: <span style="background-color: #0f766e; color: #ffffff; padding: 3px 8px; border-radius: 6px;">' . htmlspecialchars($refCode) . '</span>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
 
-    <div class="actions">
-      <a class="btn btn-call" href="tel:' . urlencode($patientPhone) . '">&#9742; Call Patient</a>
-      <a class="btn btn-wa" href="https://wa.me/' . preg_replace('/[^0-9]/', '', $patientPhone) . '?text=' . urlencode("Hello {$patientName}, this is Fountain-Top Physiotherapy Clinic in Asaba regarding your appointment booking (Ref: {$refCode}).") . '" target="_blank">&#128172; Chat on WhatsApp</a>
-    </div>
-  </div>
-  <div class="footer">
-    Fountain-Top Physiotherapy Clinic &bull; 1, Nwanze Obi Odogwu Street, Behind Stadium by MFM Junction, Asaba, Delta State &bull; 07039466804 / 09016120596
-  </div>
-</div>
+    <!-- Main Content -->
+    <tr>
+      <td style="padding: 28px;">
+        
+        <!-- Patient Demographics -->
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; margin-bottom: 24px; overflow: hidden;">
+          <tr>
+            <td style="padding: 16px 20px; border-bottom: 1px solid #e2e8f0; background-color: #f1f5f9;">
+              <span style="font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #64748b;">
+                PATIENT DEMOGRAPHICS & CONTACT
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 16px 20px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td style="padding: 6px 0; font-size: 13px; color: #64748b; width: 35%; font-weight: 600;">Full Name:</td>
+                  <td style="padding: 6px 0; font-size: 15px; color: #0f172a; font-weight: 800;">' . htmlspecialchars($patientName) . '</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px 0; font-size: 13px; color: #64748b; font-weight: 600;">Phone / WhatsApp:</td>
+                  <td style="padding: 6px 0; font-size: 15px; color: #0d9488; font-weight: 700;">
+                    <a href="tel:' . urlencode($patientPhone) . '" style="color: #0d9488; text-decoration: underline;">' . htmlspecialchars($patientPhone) . '</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px 0; font-size: 13px; color: #64748b; font-weight: 600;">Email Address:</td>
+                  <td style="padding: 6px 0; font-size: 14px; color: #0f172a;">' . 
+                    ($patientEmail ? '<a href="mailto:' . htmlspecialchars($patientEmail) . '" style="color: #0d9488; text-decoration: none;">' . htmlspecialchars($patientEmail) . '</a>' : '<span style="color: #94a3b8; font-style: italic;">Not provided</span>') . 
+                  '</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px 0; font-size: 13px; color: #64748b; font-weight: 600;">Preferred Channel:</td>
+                  <td style="padding: 6px 0; font-size: 13px; color: #334155; font-weight: 700; text-transform: uppercase;">' . 
+                    ($bookingChannel === 'email' ? '✉️ Email Notification' : '💬 WhatsApp Direct') . 
+                  '</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px 0; font-size: 13px; color: #64748b; font-weight: 600;">Received:</td>
+                  <td style="padding: 6px 0; font-size: 13px; color: #64748b;">' . htmlspecialchars($dateFormatted) . '</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+
+        <!-- Clinical Appointment Details Card -->
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; margin-bottom: 24px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+          <tr>
+            <td style="padding: 16px 20px; border-bottom: 1px solid #e2e8f0; background-color: #f1f5f9;">
+              <span style="font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #64748b;">
+                CLINICAL CARE DETAILS
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 16px 20px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td style="padding: 8px 0; font-size: 13px; color: #64748b; width: 35%; font-weight: 600;">Requested Service:</td>
+                  <td style="padding: 8px 0;">
+                    <span style="display: inline-block; background-color: #ccfbf1; color: #0f766e; border: 1px solid #99f6e4; font-size: 13px; font-weight: 800; padding: 4px 10px; border-radius: 6px;">' . 
+                      htmlspecialchars($serviceRequested) . 
+                    '</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px 0; font-size: 13px; color: #64748b; font-weight: 600;">Preferred Date:</td>
+                  <td style="padding: 6px 0; font-size: 14px; color: #0f172a; font-weight: 700;">' . htmlspecialchars($appointmentDate) . '</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px 0; font-size: 13px; color: #64748b; font-weight: 600;">Preferred Time:</td>
+                  <td style="padding: 6px 0; font-size: 14px; color: #0f172a; font-weight: 700;">' . htmlspecialchars($appointmentTime) . '</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px 0; font-size: 13px; color: #64748b; font-weight: 600;">Consultation Format:</td>
+                  <td style="padding: 6px 0; font-size: 14px; color: #0f172a; font-weight: 700;">' . 
+                    ($visitType === 'Home Visit' || strpos($visitType, 'Home') !== false ? '🏠 Home Visit Rehabilitation' : '🏥 In-Clinic Consultation (Asaba Facility)') . 
+                  '</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+
+        <!-- Symptoms & Condition Notes -->
+        <div style="margin-bottom: 24px;">
+          <div style="font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #475569; margin-bottom: 8px;">
+            PATIENT CLINICAL NOTES / SYMPTOMS:
+          </div>
+          <div style="background-color: #f8fafc; border-left: 4px solid #0d9488; border-top: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; border-radius: 0 10px 10px 0; padding: 16px 20px; font-size: 14px; line-height: 1.6; color: #334155;">
+            ' . ($notes ? nl2br($notes) : '<span style="color: #94a3b8; font-style: italic;">No additional notes provided.</span>') . '
+          </div>
+        </div>
+
+        <!-- Clinician Quick Action Buttons -->
+        <div style="text-align: center; margin: 32px 0 12px 0;">
+          <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+              <td align="center" style="padding: 6px;" class="btn-cell">
+                <a href="tel:' . urlencode($patientPhone) . '" style="display: inline-block; background-color: #0d9488; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 700; letter-spacing: 0.02em; min-width: 140px; text-align: center;">
+                  &#9742; Call Patient
+                </a>
+              </td>
+              <td align="center" style="padding: 6px;" class="btn-cell">
+                <a href="' . $waUrl . '" target="_blank" style="display: inline-block; background-color: #16a34a; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 700; letter-spacing: 0.02em; min-width: 140px; text-align: center;">
+                  &#128172; Chat on WhatsApp
+                </a>
+              </td>
+              ' . ($patientEmail ? '
+              <td align="center" style="padding: 6px;" class="btn-cell">
+                <a href="mailto:' . htmlspecialchars($patientEmail) . '?subject=' . urlencode("Regarding your Fountain-Top appointment request (Ref: {$refCode})") . '" style="display: inline-block; background-color: #334155; color: #ffffff; text-decoration: none; padding: 12px 20px; border-radius: 8px; font-size: 14px; font-weight: 700; letter-spacing: 0.02em; min-width: 130px; text-align: center;">
+                  &#9993; Email Reply
+                </a>
+              </td>' : '') . '
+            </tr>
+          </table>
+        </div>
+
+        <!-- Triage Guidance -->
+        <div style="background-color: #fffbeb; border: 1px solid #fef3c7; border-radius: 8px; padding: 12px 16px; margin-top: 24px; font-size: 12px; color: #92400e; line-height: 1.5;">
+          <strong>Clinical Triage Protocol:</strong> Please contact the patient within 2 hours of receipt to confirm appointment time, medical history readiness, and clinic directions.
+        </div>
+
+      </td>
+    </tr>
+
+    <!-- Clinic Footer -->
+    <tr>
+      <td style="background-color: #f8fafc; border-top: 1px solid #e2e8f0; padding: 24px 28px; text-align: center;">
+        <div style="font-size: 14px; font-weight: 800; color: #0f766e; margin-bottom: 6px;">
+          Fountain-Top Physiotherapy & Fitness Clinic
+        </div>
+        <div style="font-size: 12px; color: #64748b; line-height: 1.5; margin-bottom: 12px;">
+          1, Nwanze Obi Odogwu Street, Behind Stephen Keshi Stadium by Mountain of Fire (MFM) Junction, Asaba, Delta State.<br>
+          Hotlines: <a href="tel:+2347039466804" style="color: #0d9488; text-decoration: none; font-weight: 600;">07039466804</a> &bull; <a href="tel:+2349016120596" style="color: #0d9488; text-decoration: none; font-weight: 600;">09016120596</a> &bull; <a href="https://fountaintoppt.com" style="color: #0d9488; text-decoration: none; font-weight: 600;">fountaintoppt.com</a>
+        </div>
+        <div style="font-size: 11px; color: #94a3b8;">
+          Sent automatically from Fountain-Top Patient Portal &bull; Confidential Medical Record
+        </div>
+      </td>
+    </tr>
+
+  </table>
+</center>
 </body>
 </html>';
 
@@ -323,29 +522,64 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($patientEmail) && function_exists('mail')) {
         $patientSubject = clean_header("Appointment Request Confirmed [Ref: {$refCode}] - Fountain-Top Physiotherapy");
         $patientHtml = '<!DOCTYPE html>
-<html>
-<head><meta charset="UTF-8"><title>Appointment Confirmation</title></head>
-<body style="font-family:-apple-system,BlinkMacSystemFont,sans-serif;background-color:#f8fafc;padding:20px;color:#1e293b;">
-  <div style="max-width:580px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;">
-    <div style="background:#0d9488;color:#fff;padding:24px;text-align:center;">
-      <h2 style="margin:0 0 6px 0;">Fountain-Top Physiotherapy Clinic</h2>
-      <p style="margin:0;font-size:14px;color:#ccfbf1;">Thank you for scheduling with us in Asaba</p>
-    </div>
-    <div style="padding:24px;">
-      <p>Dear <strong>' . htmlspecialchars($patientName) . '</strong>,</p>
-      <p>We have successfully received your appointment request. A senior physiotherapist or patient care coordinator will contact you shortly via phone or WhatsApp to finalize your consultation timing.</p>
-      <div style="background:#f1f5f9;border-radius:8px;padding:16px;margin:16px 0;font-size:14px;">
-        <p style="margin:4px 0;"><strong>Reference Code:</strong> ' . htmlspecialchars($refCode) . '</p>
-        <p style="margin:4px 0;"><strong>Requested Service:</strong> ' . htmlspecialchars($serviceRequested) . '</p>
-        <p style="margin:4px 0;"><strong>Requested Date:</strong> ' . htmlspecialchars($appointmentDate) . ' (' . htmlspecialchars($appointmentTime) . ')</p>
-        <p style="margin:4px 0;"><strong>Care Format:</strong> ' . htmlspecialchars($visitType) . '</p>
-      </div>
-      <p style="font-size:13px;color:#64748b;">If you require urgent assistance, please call or WhatsApp us directly at <strong>+234 703 946 6804</strong> or <strong>+234 901 612 0596</strong>.</p>
-    </div>
-    <div style="background:#f8fafc;padding:12px 24px;text-align:center;font-size:12px;color:#94a3b8;border-top:1px solid #e2e8f0;">
-      1, Nwanze Obi Odogwu Street Behind Stephen Keshi Stadium by MFM Junction, Asaba, Delta State.
-    </div>
-  </div>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Appointment Confirmation</title>
+</head>
+<body style="margin: 0; padding: 24px 0; background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif; color: #1e293b;">
+<center>
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; background-color: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.04);">
+    <tr>
+      <td style="background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%); padding: 28px; text-align: center; color: #ffffff;">
+        <h1 style="margin: 0 0 6px 0; font-size: 22px; font-weight: 800; color: #ffffff;">Fountain-Top Physiotherapy Clinic</h1>
+        <p style="margin: 0; font-size: 14px; color: #ccfbf1;">Appointment Request Received &bull; Asaba, Delta State</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding: 28px;">
+        <p style="font-size: 16px; font-weight: 700; color: #0f172a; margin-top: 0;">Dear ' . htmlspecialchars($patientName) . ',</p>
+        <p style="font-size: 14px; line-height: 1.6; color: #334155;">
+          Thank you for scheduling your physiotherapy appointment with Fountain-Top Clinic. We have successfully logged your request into our clinical schedule.
+        </p>
+
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; margin: 20px 0; padding: 16px;">
+          <tr>
+            <td style="padding: 6px 12px; font-size: 13px; color: #64748b; font-weight: 600; width: 40%;">Reference Code:</td>
+            <td style="padding: 6px 12px; font-size: 14px; font-weight: 800; color: #0f766e; font-family: monospace;">' . htmlspecialchars($refCode) . '</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px 12px; font-size: 13px; color: #64748b; font-weight: 600;">Service Requested:</td>
+            <td style="padding: 6px 12px; font-size: 14px; font-weight: 700; color: #0f172a;">' . htmlspecialchars($serviceRequested) . '</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px 12px; font-size: 13px; color: #64748b; font-weight: 600;">Requested Date:</td>
+            <td style="padding: 6px 12px; font-size: 14px; color: #0f172a;">' . htmlspecialchars($appointmentDate) . ' (' . htmlspecialchars($appointmentTime) . ')</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px 12px; font-size: 13px; color: #64748b; font-weight: 600;">Care Format:</td>
+            <td style="padding: 6px 12px; font-size: 14px; color: #0f172a;">' . htmlspecialchars($visitType) . '</td>
+          </tr>
+        </table>
+
+        <p style="font-size: 14px; line-height: 1.6; color: #334155;">
+          <strong>Next Steps:</strong> A member of our clinical team will reach out via phone or WhatsApp shortly to confirm your specific arrival time and assist with any preparation needed.
+        </p>
+
+        <div style="background-color: #f1f5f9; border-radius: 8px; padding: 14px; margin-top: 20px; font-size: 13px; color: #475569;">
+          <strong>Clinic Address:</strong> 1, Nwanze Obi Odogwu Street, Behind Stephen Keshi Stadium by Mountain of Fire (MFM) Junction, Asaba, Delta State.<br>
+          <strong>Questions or Directions?</strong> Call us directly at <a href="tel:+2347039466804" style="color: #0d9488; font-weight: 700; text-decoration: none;">07039466804</a> or <a href="tel:+2349016120596" style="color: #0d9488; font-weight: 700; text-decoration: none;">09016120596</a>.
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="background-color: #f8fafc; border-top: 1px solid #e2e8f0; padding: 16px; text-align: center; font-size: 12px; color: #94a3b8;">
+        Fountain-Top Physiotherapy & Fitness Clinic &bull; Restore Movement. Build Strength. Live Pain-Free.
+      </td>
+    </tr>
+  </table>
+</center>
 </body>
 </html>';
 

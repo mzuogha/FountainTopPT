@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import fs from 'fs';
 import { createServer as createViteServer } from 'vite';
+import { generateAdminEmailHtml, generatePatientConfirmationHtml } from './src/utils/emailTemplates';
 
 async function startServer() {
   const app = express();
@@ -42,19 +43,58 @@ async function startServer() {
 
       console.log(`[Booking/Inquiry Logged] Channel: ${bookingChannel.toUpperCase()} | Type: ${isAppointment ? 'Appointment' : 'Inquiry'} | Ref: ${refCode} | Patient: ${patientName} (${patientPhone}, ${patientEmail}) | Service: ${serviceRequested}`);
 
+      // Prepare payload for rich HTML templates
+      const emailPayload = {
+        refCode,
+        patientName,
+        patientPhone,
+        patientEmail,
+        serviceRequested,
+        appointmentDate,
+        appointmentTime,
+        visitType,
+        notes,
+        bookingChannel,
+        isAppointment
+      };
+
       // If Resend API key is configured, send email notification
-      if (process.env.RESEND_API_KEY && patientEmail && patientEmail.includes('@')) {
+      if (process.env.RESEND_API_KEY) {
         try {
           const { Resend } = await import('resend');
           const resend = new Resend(process.env.RESEND_API_KEY);
+          
+          const emailSubject = `[${isAppointment ? 'Appointment' : 'Inquiry'}] ${refCode} - ${patientName} (${serviceRequested})`;
+          const emailHtml = generateAdminEmailHtml(emailPayload);
+          const emailText = `New Appointment Booking Request\n\nReference: ${refCode}\nPatient: ${patientName}\nPhone: ${patientPhone}\nEmail: ${patientEmail}\nService: ${serviceRequested}\nDate: ${appointmentDate}\nTime Window: ${appointmentTime}\nVisit Type: ${visitType}\nNotes: ${notes}\n\nClinic: Behind Stadium by MFM Junc., Asaba, Delta State\nTel: 07039466804 / 09016120596`;
+
+          // Send to clinical desk and management
           await resend.emails.send({
-            from: 'Fountain Top Clinic <appointments@fountaintoppt.com>',
-            to: ['info@fountaintoppt.com'],
-            replyTo: patientEmail,
-            subject: `[New ${bookingChannel === 'email' ? 'Email' : 'WhatsApp'} Booking] ${refCode} - ${patientName}`,
-            text: `New Appointment Booking Request\n\nReference: ${refCode}\nPatient: ${patientName}\nEmail: ${patientEmail}\nPhone: ${patientPhone}\nService: ${serviceRequested}\nDate: ${appointmentDate}\nTime Window: ${appointmentTime}\nVisit Type: ${visitType}\nNotes: ${notes}\n\nClinic Location: Behind Stadium by MFM Junc., Asaba, Delta State`
+            from: 'Fountain-Top Clinic <appointments@fountaintoppt.com>',
+            to: ['info@fountaintoppt.com', 'mzuogha@gmail.com'],
+            replyTo: patientEmail && patientEmail.includes('@') ? patientEmail : 'info@fountaintoppt.com',
+            subject: emailSubject,
+            html: emailHtml,
+            text: emailText
           });
-          console.log(`[Resend Email] Successfully dispatched email for ref: ${refCode}`);
+          console.log(`[Resend Email] Successfully dispatched rich HTML email for ref: ${refCode} to clinic desk and management`);
+
+          // Send confirmation receipt to patient if valid email provided
+          if (patientEmail && patientEmail.includes('@') && !['info@fountaintoppt.com', 'mzuogha@gmail.com'].includes(patientEmail.toLowerCase())) {
+            try {
+              await resend.emails.send({
+                from: 'Fountain-Top Physiotherapy <appointments@fountaintoppt.com>',
+                to: [patientEmail],
+                replyTo: 'info@fountaintoppt.com',
+                subject: `Appointment Booking Confirmation - ${refCode} | Fountain-Top Clinic`,
+                html: generatePatientConfirmationHtml(emailPayload),
+                text: `Dear ${patientName},\n\nThank you for booking with Fountain-Top Physiotherapy Clinic.\nYour booking reference is: ${refCode}\nService: ${serviceRequested}\nRequested Date: ${appointmentDate} (${appointmentTime})\nCare Format: ${visitType}\n\nOur team will reach out to confirm your slot.\nClinic Address: 1, Nwanze Obi Odogwu Street, Behind Stephen Keshi Stadium by MFM Junction, Asaba, Delta State.\nPhone: 07039466804 / 09016120596`
+              });
+              console.log(`[Resend Email] Patient confirmation sent to ${patientEmail}`);
+            } catch (pErr) {
+              console.warn('[Resend Email] Patient confirmation failed:', pErr);
+            }
+          }
         } catch (emailErr) {
           console.warn('[Resend Email] Notification dispatch skipped/failed:', emailErr);
         }
