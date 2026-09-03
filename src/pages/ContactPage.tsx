@@ -209,9 +209,9 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenBooking, onNavig
                 </div>
 
                 {/* Social Media Channels */}
-                <div className="p-3.5 rounded-2xl bg-gradient-to-br from-slate-50 to-teal-50/30 dark:from-slate-800/80 dark:to-teal-950/20 border border-slate-100 dark:border-slate-800 space-y-3">
+                <div className="p-3.5 rounded-2xl bg-gradient-to-br from-slate-50 to-teal-50/30 dark:from-slate-800/90 dark:to-teal-950/30 border border-slate-200/80 dark:border-slate-800 space-y-3">
                   <div className="flex items-center justify-between">
-                    <div className="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-wider text-teal-700 dark:text-teal-400">
+                    <div className="font-bold text-slate-900 dark:text-teal-400 text-xs uppercase tracking-wider text-teal-700">
                       Follow Our Clinic Online
                     </div>
                     <span className="text-[11px] text-slate-500 dark:text-slate-400">Social Channels</span>
@@ -222,14 +222,14 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenBooking, onNavig
                       href={CLINIC_INFO.instagramUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2.5 p-2.5 rounded-xl bg-white dark:bg-slate-850 border border-slate-200/80 dark:border-slate-700/80 hover:border-pink-500/60 text-slate-800 dark:text-slate-200 hover:text-pink-600 dark:hover:text-pink-400 transition group shadow-2xs"
+                      className="flex items-center gap-2.5 p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-700 hover:border-pink-500/60 dark:hover:border-pink-500/60 transition group shadow-2xs"
                     >
-                      <div className="w-8 h-8 rounded-lg bg-pink-50 dark:bg-pink-950/50 flex items-center justify-center text-pink-600 dark:text-pink-400 group-hover:scale-110 transition-transform shrink-0">
+                      <div className="w-8 h-8 rounded-lg bg-pink-50 dark:bg-pink-950/70 border border-pink-100/60 dark:border-pink-900/60 flex items-center justify-center text-pink-600 dark:text-pink-400 group-hover:scale-110 transition-transform shrink-0">
                         <Instagram className="w-4 h-4" />
                       </div>
                       <div className="min-w-0">
-                        <div className="text-xs font-bold truncate">Instagram</div>
-                        <div className="text-[10px] text-slate-500 dark:text-slate-400 truncate">{CLINIC_INFO.instagramHandle}</div>
+                        <div className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors truncate">Instagram</div>
+                        <div className="text-[10px] text-slate-500 dark:text-slate-300 truncate">{CLINIC_INFO.instagramHandle}</div>
                       </div>
                     </a>
 
@@ -237,14 +237,14 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenBooking, onNavig
                       href={CLINIC_INFO.facebookUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2.5 p-2.5 rounded-xl bg-white dark:bg-slate-850 border border-slate-200/80 dark:border-slate-700/80 hover:border-blue-500/60 text-slate-800 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 transition group shadow-2xs"
+                      className="flex items-center gap-2.5 p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-700 hover:border-blue-500/60 dark:hover:border-blue-500/60 transition group shadow-2xs"
                     >
-                      <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform shrink-0">
+                      <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950/70 border border-blue-100/60 dark:border-blue-900/60 flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform shrink-0">
                         <Facebook className="w-4 h-4" />
                       </div>
                       <div className="min-w-0">
-                        <div className="text-xs font-bold truncate">Facebook</div>
-                        <div className="text-[10px] text-slate-500 dark:text-slate-400 truncate">Official Page</div>
+                        <div className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate">Facebook</div>
+                        <div className="text-[10px] text-slate-500 dark:text-slate-300 truncate">Official Page</div>
                       </div>
                     </a>
                   </div>

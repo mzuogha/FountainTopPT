@@ -211,7 +211,7 @@ export const ContactSection: React.FC = () => {
 
               {/* Social Channels Card */}
               <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
-                <span className="font-bold text-slate-900 dark:text-white block text-xs uppercase tracking-wider text-teal-700 dark:text-teal-400 mb-3">
+                <span className="font-bold text-slate-900 dark:text-teal-400 block text-xs uppercase tracking-wider text-teal-700 mb-3">
                   Follow Our Clinic
                 </span>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -219,14 +219,14 @@ export const ContactSection: React.FC = () => {
                     href={CLINIC_INFO.instagramUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2.5 p-3 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 hover:border-pink-500/50 text-slate-800 dark:text-slate-200 hover:text-pink-600 dark:hover:text-pink-400 transition group shadow-2xs"
+                    className="flex items-center gap-2.5 p-3 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-700/90 hover:border-pink-500/50 dark:hover:border-pink-500/60 transition group shadow-2xs"
                   >
-                    <div className="w-8 h-8 rounded-xl bg-pink-50 dark:bg-pink-950/50 flex items-center justify-center text-pink-600 dark:text-pink-400 group-hover:scale-110 transition-transform shrink-0">
+                    <div className="w-8 h-8 rounded-xl bg-pink-50 dark:bg-pink-950/70 border border-pink-100/60 dark:border-pink-900/60 flex items-center justify-center text-pink-600 dark:text-pink-400 group-hover:scale-110 transition-transform shrink-0">
                       <Instagram className="w-4 h-4" />
                     </div>
                     <div className="min-w-0">
-                      <div className="text-xs font-bold truncate">Instagram</div>
-                      <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">{CLINIC_INFO.instagramHandle}</div>
+                      <div className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors truncate">Instagram</div>
+                      <div className="text-[11px] text-slate-500 dark:text-slate-300 truncate">{CLINIC_INFO.instagramHandle}</div>
                     </div>
                   </a>
 
@@ -234,14 +234,14 @@ export const ContactSection: React.FC = () => {
                     href={CLINIC_INFO.facebookUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2.5 p-3 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 hover:border-blue-500/50 text-slate-800 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 transition group shadow-2xs"
+                    className="flex items-center gap-2.5 p-3 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-700/90 hover:border-blue-500/50 dark:hover:border-blue-500/60 transition group shadow-2xs"
                   >
-                    <div className="w-8 h-8 rounded-xl bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform shrink-0">
+                    <div className="w-8 h-8 rounded-xl bg-blue-50 dark:bg-blue-950/70 border border-blue-100/60 dark:border-blue-900/60 flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform shrink-0">
                       <Facebook className="w-4 h-4" />
                     </div>
                     <div className="min-w-0">
-                      <div className="text-xs font-bold truncate">Facebook</div>
-                      <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">Official Clinic Page</div>
+                      <div className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate">Facebook</div>
+                      <div className="text-[11px] text-slate-500 dark:text-slate-300 truncate">Official Clinic Page</div>
                     </div>
                   </a>
                 </div>
