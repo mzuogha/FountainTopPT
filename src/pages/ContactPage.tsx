@@ -11,7 +11,9 @@ import {
   ChevronRight,
   Calendar,
   ShieldCheck,
-  ExternalLink
+  ExternalLink,
+  Instagram,
+  Facebook
 } from 'lucide-react';
 import { CLINIC_INFO } from '../data/clinicData';
 import { Page } from '../types';
@@ -203,6 +205,48 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenBooking, onNavig
                       <span>Sunday:</span>
                       <span className="font-semibold text-rose-500">Closed (Emergency On-Call)</span>
                     </div>
+                  </div>
+                </div>
+
+                {/* Social Media Channels */}
+                <div className="p-3.5 rounded-2xl bg-gradient-to-br from-slate-50 to-teal-50/30 dark:from-slate-800/80 dark:to-teal-950/20 border border-slate-100 dark:border-slate-800 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-wider text-teal-700 dark:text-teal-400">
+                      Follow Our Clinic Online
+                    </div>
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400">Social Channels</span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <a
+                      href={CLINIC_INFO.instagramUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 p-2.5 rounded-xl bg-white dark:bg-slate-850 border border-slate-200/80 dark:border-slate-700/80 hover:border-pink-500/60 text-slate-800 dark:text-slate-200 hover:text-pink-600 dark:hover:text-pink-400 transition group shadow-2xs"
+                    >
+                      <div className="w-8 h-8 rounded-lg bg-pink-50 dark:bg-pink-950/50 flex items-center justify-center text-pink-600 dark:text-pink-400 group-hover:scale-110 transition-transform shrink-0">
+                        <Instagram className="w-4 h-4" />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="text-xs font-bold truncate">Instagram</div>
+                        <div className="text-[10px] text-slate-500 dark:text-slate-400 truncate">{CLINIC_INFO.instagramHandle}</div>
+                      </div>
+                    </a>
+
+                    <a
+                      href={CLINIC_INFO.facebookUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 p-2.5 rounded-xl bg-white dark:bg-slate-850 border border-slate-200/80 dark:border-slate-700/80 hover:border-blue-500/60 text-slate-800 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 transition group shadow-2xs"
+                    >
+                      <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform shrink-0">
+                        <Facebook className="w-4 h-4" />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="text-xs font-bold truncate">Facebook</div>
+                        <div className="text-[10px] text-slate-500 dark:text-slate-400 truncate">Official Page</div>
+                      </div>
+                    </a>
                   </div>
                 </div>
               </div>

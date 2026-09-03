@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, Mail, MapPin, Clock, Calendar, Menu, X, MessageSquare, ChevronRight } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Calendar, Menu, X, MessageSquare, ChevronRight, Instagram, Facebook } from 'lucide-react';
 import { CLINIC_INFO } from '../data/clinicData';
 import { Page } from '../types';
 import { ThemeToggle } from './ThemeToggle';
@@ -71,7 +71,31 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, onOpenB
             </div>
           </div>
 
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            {/* Social Quick Links */}
+            <div className="hidden md:flex items-center gap-1.5 pr-2 border-r border-slate-700/80">
+              <a
+                href={CLINIC_INFO.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Instagram @fountaintopphysioclinic"
+                aria-label="Instagram"
+                className="p-1 text-slate-400 hover:text-pink-400 transition-colors"
+              >
+                <Instagram className="w-3.5 h-3.5" />
+              </a>
+              <a
+                href={CLINIC_INFO.facebookUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Facebook Page"
+                aria-label="Facebook"
+                className="p-1 text-slate-400 hover:text-blue-400 transition-colors"
+              >
+                <Facebook className="w-3.5 h-3.5" />
+              </a>
+            </div>
+
             <a
               href={CLINIC_INFO.whatsappUrl}
               target="_blank"
@@ -194,6 +218,30 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, onOpenB
               <Phone className="w-4 h-4 text-teal-600 dark:text-teal-400" />
               <span>Call Clinic ({CLINIC_INFO.phone1})</span>
             </a>
+
+            {/* Social Links in Mobile Menu */}
+            <div className="pt-2 flex items-center justify-center gap-4 text-xs">
+              <span className="text-slate-500 dark:text-slate-400 font-medium">Connect:</span>
+              <a
+                href={CLINIC_INFO.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1 text-slate-700 dark:text-slate-300 hover:text-pink-500 transition font-semibold"
+              >
+                <Instagram className="w-4 h-4 text-pink-500" />
+                <span>Instagram</span>
+              </a>
+              <span className="text-slate-300 dark:text-slate-700">•</span>
+              <a
+                href={CLINIC_INFO.facebookUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1 text-slate-700 dark:text-slate-300 hover:text-blue-500 transition font-semibold"
+              >
+                <Facebook className="w-4 h-4 text-blue-500" />
+                <span>Facebook</span>
+              </a>
+            </div>
           </div>
         </div>
       )}

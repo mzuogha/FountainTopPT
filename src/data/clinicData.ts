@@ -15,6 +15,10 @@ export const CLINIC_INFO = {
   emailUrl: 'mailto:info@fountaintoppt.com',
   whatsappNumber: '2347039466804',
   whatsappUrl: 'https://wa.me/2347039466804?text=Hello%20Fountain%20Top%20Physiotherapy%2C%20I%20would%20like%20to%20inquire%20about%20booking%20a%20consultation.',
+  instagramUrl: 'https://www.instagram.com/fountaintopphysioclinic/',
+  instagramHandle: '@fountaintopphysioclinic',
+  facebookUrl: 'https://www.facebook.com/people/Fountain-Top-Physiotherapy-Fitness-Clinic/61573822882355/',
+  facebookName: 'Fountain-Top Physiotherapy & Fitness Clinic',
   hours: [
     { days: 'Monday – Friday', time: '8:00 AM – 6:00 PM' },
     { days: 'Saturday', time: '9:00 AM – 3:00 PM' },

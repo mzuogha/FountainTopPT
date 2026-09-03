@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, Mail, MapPin, ArrowUp, ShieldCheck, MessageSquare } from 'lucide-react';
+import { Phone, Mail, MapPin, ArrowUp, ShieldCheck, MessageSquare, Instagram, Facebook } from 'lucide-react';
 import { CLINIC_INFO, SERVICES } from '../data/clinicData';
 import { Page } from '../types';
 import { ThemeToggle } from './ThemeToggle';
@@ -42,6 +42,35 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <div className="pt-2 flex items-center gap-2 text-teal-400 text-xs font-semibold">
               <ShieldCheck className="w-4 h-4" />
               <span>Licensed & Certified Physical Therapy Facility</span>
+            </div>
+
+            {/* Social Media Channels */}
+            <div className="pt-3">
+              <span className="text-[11px] uppercase font-bold text-slate-400 tracking-wider block mb-2">
+                Connect With Our Clinic
+              </span>
+              <div className="flex items-center gap-2.5">
+                <a
+                  href={CLINIC_INFO.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Follow Fountain-Top Physiotherapy on Instagram"
+                  className="flex items-center gap-2 bg-slate-900 hover:bg-gradient-to-r hover:from-purple-600 hover:via-pink-600 hover:to-orange-500 text-slate-300 hover:text-white px-3 py-1.5 rounded-xl border border-slate-800 hover:border-transparent transition-all duration-200 text-xs font-semibold group shadow-xs"
+                >
+                  <Instagram className="w-4 h-4 text-pink-400 group-hover:text-white transition-colors" />
+                  <span>Instagram</span>
+                </a>
+                <a
+                  href={CLINIC_INFO.facebookUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Follow Fountain-Top Physiotherapy on Facebook"
+                  className="flex items-center gap-2 bg-slate-900 hover:bg-blue-600 text-slate-300 hover:text-white px-3 py-1.5 rounded-xl border border-slate-800 hover:border-transparent transition-all duration-200 text-xs font-semibold group shadow-xs"
+                >
+                  <Facebook className="w-4 h-4 text-blue-400 group-hover:text-white transition-colors" />
+                  <span>Facebook</span>
+                </a>
+              </div>
             </div>
           </div>
 
@@ -161,6 +190,28 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 <MessageSquare className="w-3.5 h-3.5" />
                 <span>Chat on WhatsApp ({CLINIC_INFO.phone1Formatted})</span>
               </a>
+
+              <div className="pt-2.5 mt-2 border-t border-slate-800/80 space-y-1.5">
+                <span className="text-slate-400 block text-[11px] font-semibold uppercase tracking-wider">Follow On Social Media:</span>
+                <a
+                  href={CLINIC_INFO.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-slate-300 hover:text-pink-400 transition"
+                >
+                  <Instagram className="w-3.5 h-3.5 text-pink-400 shrink-0" />
+                  <span className="truncate">{CLINIC_INFO.instagramHandle}</span>
+                </a>
+                <a
+                  href={CLINIC_INFO.facebookUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-slate-300 hover:text-blue-400 transition"
+                >
+                  <Facebook className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                  <span className="truncate">Facebook Page</span>
+                </a>
+              </div>
             </div>
 
             <div className="pt-2">
@@ -181,6 +232,28 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           </div>
 
           <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 pr-3 border-r border-slate-800">
+              <a
+                href={CLINIC_INFO.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow on Instagram"
+                title="Instagram @fountaintopphysioclinic"
+                className="text-slate-400 hover:text-pink-400 transition"
+              >
+                <Instagram className="w-4 h-4" />
+              </a>
+              <a
+                href={CLINIC_INFO.facebookUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow on Facebook"
+                title="Facebook Page"
+                className="text-slate-400 hover:text-blue-400 transition"
+              >
+                <Facebook className="w-4 h-4" />
+              </a>
+            </div>
             <ThemeToggle />
             <button
               onClick={scrollToTop}
