@@ -23,7 +23,7 @@ async function startServer() {
   });
 
   // Form Submission & Booking API Endpoint (Email & WhatsApp sync)
-  app.all(['/api.php', '/form_container/submit', '/api/submit'], async (req, res) => {
+  app.all(['/api.php', '/form_container/submit', '/api/submit', '/api/submit.php'], async (req, res) => {
     console.log(`[API/Form] Received ${req.method} request:`, req.body);
 
     if (req.method === 'POST') {

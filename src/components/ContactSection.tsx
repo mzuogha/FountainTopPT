@@ -38,15 +38,24 @@ export const ContactSection: React.FC = () => {
     setSubmittedChannel(channel);
 
     try {
-      await fetch('/api/submit', {
+      const payload = JSON.stringify({
+        ...formData,
+        bookingChannel: channel,
+        type: 'inquiry'
+      });
+
+      let res = await fetch('/api/submit.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          bookingChannel: channel,
-          type: 'inquiry'
-        })
+        body: payload
       });
+      if (!res.ok) {
+        await fetch('/api/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: payload
+        });
+      }
     } catch {
       // Offline fallback
     }

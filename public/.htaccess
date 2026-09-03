@@ -13,15 +13,16 @@ Options -Indexes
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
-  # Route /api/submit to /api/submit.php if PHP backend is used on cPanel
-  RewriteRule ^api/submit$ /api/submit.php [L,QSA]
+  # Direct API routes for cPanel PHP backend
+  RewriteRule ^api/submit/?$ api/submit.php [L,QSA]
+  RewriteRule ^api/book-appointment/?$ api/submit.php [L,QSA]
 
   # Route all other requests to index.html for Single Page Application routing
   RewriteRule ^ index.html [L]
 </IfModule>
 
 # 2. Security: Block direct access to hidden files, environment files, logs, and metadata
-<FilesMatch "(^\.|\.log$|\.env|\.git|\.md$|package\.json|tsconfig\.json|composer\.json)">
+<FilesMatch "(^\.|\.log$|submissions\.json|\.env|\.git|\.md$|package\.json|tsconfig\.json|composer\.json)">
   <IfModule mod_authz_core.c>
     Require all denied
   </IfModule>

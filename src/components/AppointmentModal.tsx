@@ -125,16 +125,26 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
     setConfirmedChannel(channel);
 
     try {
-      await fetch('/api/submit', {
+      const payload = JSON.stringify({
+        ...formData,
+        bookingChannel: channel,
+        serviceTitle: selectedService.title,
+        reference: refCode
+      });
+
+      // Attempt direct PHP backend first, falling back to rewrite URL
+      let res = await fetch('/api/submit.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          bookingChannel: channel,
-          serviceTitle: selectedService.title,
-          reference: refCode
-        })
+        body: payload
       });
+      if (!res.ok) {
+        await fetch('/api/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: payload
+        });
+      }
     } catch {
       // Offline fallback
     }
