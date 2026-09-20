@@ -4,6 +4,7 @@
 [![Vite](https://img.shields.io/badge/Vite-6-646CFF.svg?logo=vite)](https://vitejs.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6.svg?logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC.svg?logo=tailwind-css)](https://tailwindcss.com/)
+[![Latest Release](https://img.shields.io/github/v/release/mzuogha/FountainTopPT?color=0f766e&label=release)](https://github.com/mzuogha/FountainTopPT/releases)
 [![License](https://img.shields.io/badge/License-Proprietary-teal.svg)](#license)
 
 > **Fountain Top Physiotherapy** is a leading physical rehabilitation center located behind Stephen Keshi Stadium by MFM Junction in Asaba, Delta State, Nigeria. This production-grade web application delivers patient booking flows, WhatsApp integration, symptom assessments, specialized rehabilitation program catalogs, and an evidence-based clinical health knowledge hub.
