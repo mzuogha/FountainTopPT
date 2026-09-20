@@ -307,16 +307,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 // --------------------------------------------------------------------------
 // GET REQUESTS: Diagnostics, Self-Test, or Secure Leads Dashboard
 // --------------------------------------------------------------------------
+// CSV cell sanitization to prevent formula injection in spreadsheet software
+function clean_csv_cell($val) {
+    $str = (string)$val;
+    if (preg_match('/^[\=\+\-\@\t\r]/', $str)) {
+        return "'" . $str;
+    }
+    return $str;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $action = clean_header($_GET['action'] ?? $_GET['test'] ?? '');
     $providedKey = clean_header($_GET['key'] ?? '');
+    $isAdmin = !empty($providedKey) && hash_equals($config['access_key'], $providedKey);
 
     // 1. Secure Patient Leads & Bookings Dashboard
     if ($action === 'leads' || $action === 'view_leads') {
-        if (empty($providedKey) || $providedKey !== $config['access_key']) {
+        if (!$isAdmin) {
             http_response_code(403);
             header('Content-Type: text/html; charset=UTF-8');
-            echo '<!DOCTYPE html><html><body style="font-family:sans-serif;padding:40px;text-align:center;"><h2>Access Restricted</h2><p>Please provide a valid access key: <code>?action=leads&key=YOUR_KEY</code></p></body></html>';
+            echo '<!DOCTYPE html><html><body style="font-family:sans-serif;padding:40px;text-align:center;"><h2>Access Restricted</h2><p>Authentication required.</p></body></html>';
             exit;
         }
 
@@ -326,7 +336,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $leads = json_decode(@file_get_contents($jsonFile), true) ?: [];
         }
 
-        // CSV Export format
+        // CSV Export format with anti-formula injection
         if (($_GET['format'] ?? '') === 'csv') {
             header('Content-Type: text/csv; charset=UTF-8');
             header('Content-Disposition: attachment; filename="fountain_top_leads_' . date('Ymd_His') . '.csv"');
@@ -334,18 +344,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             fputcsv($out, ['Reference', 'Timestamp', 'Type', 'Channel', 'Patient Name', 'Phone Number', 'Email', 'Service Requested', 'Preferred Date', 'Preferred Time', 'Care Format', 'Notes / Symptoms']);
             foreach ($leads as $l) {
                 fputcsv($out, [
-                    $l['reference'] ?? '',
-                    $l['timestamp'] ?? '',
-                    $l['type'] ?? '',
-                    $l['channel'] ?? '',
-                    $l['patientName'] ?? '',
-                    $l['patientPhone'] ?? '',
-                    $l['patientEmail'] ?? '',
-                    $l['service'] ?? '',
-                    $l['date'] ?? '',
-                    $l['time'] ?? '',
-                    $l['visitType'] ?? '',
-                    $l['notes'] ?? ''
+                    clean_csv_cell($l['reference'] ?? ''),
+                    clean_csv_cell($l['timestamp'] ?? ''),
+                    clean_csv_cell($l['type'] ?? ''),
+                    clean_csv_cell($l['channel'] ?? ''),
+                    clean_csv_cell($l['patientName'] ?? ''),
+                    clean_csv_cell($l['patientPhone'] ?? ''),
+                    clean_csv_cell($l['patientEmail'] ?? ''),
+                    clean_csv_cell($l['service'] ?? ''),
+                    clean_csv_cell($l['date'] ?? ''),
+                    clean_csv_cell($l['time'] ?? ''),
+                    clean_csv_cell($l['visitType'] ?? ''),
+                    clean_csv_cell($l['notes'] ?? '')
                 ]);
             }
             fclose($out);
@@ -462,8 +472,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $sendmailPath = ini_get('sendmail_path');
         $domain = get_sender_domain();
 
-        // Check for custom destination passed via &to=email@example.com
+        // Check for custom destination passed via &to=email@example.com (Requires admin key)
         $customTo = filter_var(clean_header($_GET['to'] ?? ''), FILTER_VALIDATE_EMAIL);
+        if ($customTo && !$isAdmin) {
+            http_response_code(403);
+            echo json_encode(['status' => 'error', 'message' => 'Authentication required to test external recipient']);
+            exit;
+        }
 
         $testRecipients = ['info@fountaintoppt.com'];
         if ($customTo && !in_array($customTo, $testRecipients)) {
@@ -500,26 +515,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             ];
         }
 
-        echo json_encode([
+        $diagResponse = [
             'status' => 'diagnostic_complete',
             'server_domain' => $domain,
             'mail_function_exists' => $mailAvailable,
-            'sendmail_path' => $sendmailPath,
             'smtp_configured' => !empty($config['smtp_enabled']),
             'dispatch_results' => $results,
             'cpanel_guidance' => 'If info@fountaintoppt.com is not receiving emails while external addresses do, in cPanel go to "Email Routing" and change the setting from "Local Mail Exchanger" to "Remote Mail Exchanger".',
-            'server_time' => date('Y-m-d H:i:s T'),
-            'php_version' => phpversion()
-        ], JSON_PRETTY_PRINT);
+            'server_time' => date('Y-m-d H:i:s T')
+        ];
+        if ($isAdmin) {
+            $diagResponse['sendmail_path'] = $sendmailPath;
+            $diagResponse['php_version'] = phpversion();
+        }
+
+        echo json_encode($diagResponse, JSON_PRETTY_PRINT);
         exit;
     }
 
     echo json_encode([
         'status' => 'online',
         'clinic' => 'Fountain-Top Physiotherapy & Fitness Clinic',
-        'location' => 'Asaba, Delta State, Nigeria',
-        'message' => 'Fountain-Top API active. Pass ?action=test to test mail dispatch, or ?action=leads&key=YOUR_KEY to view patient bookings.',
-        'version' => '2.3'
+        'location' => 'Asaba, Delta State, Nigeria'
     ]);
     exit;
 }
@@ -542,6 +559,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!is_array($data)) {
         $data = $_POST;
     }
+
+    // Anti-Spam Honeypot Trap (silently acknowledge bots without processing)
+    if (!empty($data['website']) || !empty($data['company_fax']) || !empty($data['_honeypot'])) {
+        echo json_encode(['status' => 'success', 'reference' => 'FT-' . rand(100000, 999999), 'message' => 'Your inquiry has been received.']);
+        exit;
+    }
+
+    // IP-based sliding window rate limiter (max 15 requests per 10 minutes per IP)
+    $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+    $rateFile = __DIR__ . '/.rate_limit.json';
+    $rateLimitWindow = 600;
+    $maxRateAttempts = 15;
+    $now = time();
+    $ipHash = md5($ip);
+
+    $rateData = [];
+    if (file_exists($rateFile)) {
+        $rateData = json_decode(@file_get_contents($rateFile), true) ?: [];
+    }
+
+    $cleanedRateData = [];
+    foreach ($rateData as $k => $v) {
+        if ($now - ($v['time'] ?? 0) < $rateLimitWindow) {
+            $cleanedRateData[$k] = $v;
+        }
+    }
+
+    if (isset($cleanedRateData[$ipHash]) && ($cleanedRateData[$ipHash]['count'] ?? 0) >= $maxRateAttempts) {
+        http_response_code(429);
+        echo json_encode(['status' => 'error', 'message' => 'Too many requests. Please wait a few moments or contact clinic reception on WhatsApp (+234 703 946 6804).']);
+        exit;
+    }
+
+    $cleanedRateData[$ipHash] = [
+        'time' => $cleanedRateData[$ipHash]['time'] ?? $now,
+        'count' => ($cleanedRateData[$ipHash]['count'] ?? 0) + 1
+    ];
+    @file_put_contents($rateFile, json_encode($cleanedRateData), LOCK_EX);
 
     // Determine inquiry vs booking
     $isAppointment = !empty($data['preferredDate']) || !empty($data['serviceId']) || !empty($data['reference']) || !empty($data['serviceTitle']);

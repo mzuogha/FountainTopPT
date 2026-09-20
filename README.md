@@ -165,28 +165,6 @@ The repository includes a ready-to-deploy archive **`cpanel_public_html.tar.gz`*
 
 ---
 
-## 📧 cPanel Email Service & Booking API Details
-
-The cPanel upload includes a production-grade native PHP backend (`api/submit.php`) designed for shared hosting and cPanel Exim mail servers:
-
-- **Dual-Dispatch Notifications:** All appointment bookings and inquiries are dispatched simultaneously to:
-  - Official Clinic Desk: `info@fountaintoppt.com`
-  - Clinic Management Inbox: `mzuogha@gmail.com`
-- **Patient Confirmation Receipts:** When a patient provides an email address, an automated, professional appointment confirmation receipt is sent to them with their reference code and booking details.
-- **cPanel Exim Compatibility:** Automatically detects the server domain, configures compliant `From:` and `Reply-To:` MIME headers, and uses the `-f` envelope sender parameter to prevent Exim "Sender verify failed" or spam score penalties.
-- **Persistent Fail-Safe Storage:** Every booking is securely logged to `api/submissions.json` and `api/submissions.log` with file locking (`LOCK_EX`). Direct public downloads are blocked by `.htaccess`.
-- **Diagnostic Self-Test URL:** To verify that your cPanel host has PHP `mail()` enabled and functioning, open:
-  ```
-  https://fountaintoppt.com/api/submit.php?action=test
-  ```
-  This executes a real-time mail dispatch test to `info@fountaintoppt.com` and `mzuogha@gmail.com`, outputting the exact status, sendmail path, and PHP version.
-
-### Recommended cPanel Setup:
-1. In cPanel under **Email Accounts**, ensure `info@fountaintoppt.com` is created.
-2. (Optional) Set up an **Email Forwarder** in cPanel from `info@fountaintoppt.com` to `mzuogha@gmail.com` for instant smartphone notifications.
-
----
-
 ## 🔍 SEO, Schema.org & Performance
 
 - **Canonical Sitemap:** Updated XML sitemap available at `https://fountaintoppt.com/sitemap.xml` with deep-links to all 9 clinical treatment programs (including General Consultation) and 12 evidence-based physiotherapy guides.
