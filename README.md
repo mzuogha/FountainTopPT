@@ -18,7 +18,6 @@
 - [Specialized Rehabilitation Programs](#-specialized-rehabilitation-programs)
 - [Tech Stack & Architecture](#-tech-stack--architecture)
 - [Project Directory Structure](#-project-directory-structure)
-- [Getting Started & Local Development](#-getting-started--local-development)
 - [cPanel Deployment Guide (Step-by-Step)](#-cpanel-deployment-guide-step-by-step)
 - [SEO, Schema.org & Performance](#-seo-schemaorg--performance)
 - [Contact & Location](#-contact--location)
@@ -132,40 +131,6 @@ The application features 12 comprehensive, medical guides indexed with Schema.or
 │   │   └── healthArticles.ts   # 12 clinical physiotherapy articles with rich data
 │   └── pages/                  # Page components (HomePage, ServicesPage, HealthTipsPage, ContactPage)
 └── tsconfig.json               # TypeScript compiler configuration
-```
-
----
-
-## 🚀 Getting Started & Local Development
-
-### Prerequisites
-- Node.js (v18.0.0 or higher recommended)
-- npm (v9.0.0 or higher)
-
-### Installation
-```bash
-# 1. Clone the repository
-git clone https://github.com/mzuogha/FountainTopPT.git
-cd FountainTopPT
-
-# 2. Install dependencies
-npm install
-
-# 3. Start development server
-npm run dev
-```
-The application will launch at `http://localhost:3000`.
-
-### Production Build Scripts
-```bash
-# Standard Production Build (generates dist/ folder)
-npm run build
-
-# One-Click cPanel Package Generation (generates cpanel_public_html.tar.gz)
-npm run build:cpanel
-
-# Type Check / Lint
-npm run lint
 ```
 
 ---
