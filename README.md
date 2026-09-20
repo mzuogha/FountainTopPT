@@ -18,7 +18,6 @@
 - [Specialized Rehabilitation Programs](#-specialized-rehabilitation-programs)
 - [Tech Stack & Architecture](#-tech-stack--architecture)
 - [Project Directory Structure](#-project-directory-structure)
-- [cPanel Deployment Guide (Step-by-Step)](#-cpanel-deployment-guide-step-by-step)
 - [SEO, Schema.org & Performance](#-seo-schemaorg--performance)
 - [Contact & Location](#-contact--location)
 
@@ -132,36 +131,6 @@ The application features 12 comprehensive, medical guides indexed with Schema.or
 │   └── pages/                  # Page components (HomePage, ServicesPage, HealthTipsPage, ContactPage)
 └── tsconfig.json               # TypeScript compiler configuration
 ```
-
----
-
-## 🌐 cPanel Deployment Guide (Step-by-Step)
-
-The repository includes a ready-to-deploy archive **`cpanel_public_html.tar.gz`**.
-
-### Method 1: Instant Deployment with `cpanel_public_html.tar.gz` (Recommended)
-
-1. Log in to your **cPanel Dashboard**.
-2. Open **File Manager** and enter the **`public_html`** folder (or your subdomain directory).
-3. Click **Upload** in the top toolbar.
-4. Select and upload **`cpanel_public_html.tar.gz`** from the root of this repository.
-5. In File Manager, right-click `cpanel_public_html.tar.gz` and select **Extract** -> Extract to `/public_html`.
-6. **Done!** Your website is immediately live with all pages, images, contact forms, and `.htaccess` routing active.
-
-### Method 2: Manual Build & Upload
-
-1. Run the build locally:
-   ```bash
-   npm run build
-   ```
-2. Open cPanel **File Manager** -> **`public_html`**.
-3. Upload all files inside the generated **`dist/`** folder:
-   - `index.html`
-   - `assets/` (bundled JS & CSS)
-   - `images/` (WebP photos)
-   - `.htaccess` (SPA routing & caching)
-   - `api/submit.php` (appointment form email handler)
-   - `sitemap.xml` & `robots.txt`
 
 ---
 
