@@ -3,9 +3,12 @@ Allow: /
 Allow: /services
 Allow: /health-tips
 Allow: /contact
+Allow: /privacy-policy
+Allow: /terms-and-conditions
 Allow: /images/
 
-# Disallow administrative/internal log files
+# Disallow conversion receipt / thank-you page and administrative/internal log files
+Disallow: /thank-you
 Disallow: /api/submissions.log
 Disallow: /api/submissions.json
 

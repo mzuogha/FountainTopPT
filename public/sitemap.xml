@@ -24,9 +24,21 @@
   </url>
   <url>
     <loc>https://fountaintoppt.com/contact</loc>
-    <lastmod>2026-09-03</lastmod>
+    <lastmod>2026-09-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://fountaintoppt.com/privacy-policy</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://fountaintoppt.com/terms-and-conditions</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
   </url>
 
   <!-- Key Clinical Program Deep Links -->

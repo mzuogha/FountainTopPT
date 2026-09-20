@@ -12,7 +12,8 @@ interface AppointmentModalProps {
 export const AppointmentModal: React.FC<AppointmentModalProps> = ({
   isOpen,
   onClose,
-  initialServiceId
+  initialServiceId,
+  onNavigate
 }) => {
   const [channel, setChannel] = useState<'email' | 'whatsapp'>('email');
   const [formData, setFormData] = useState<AppointmentFormData>({
@@ -346,9 +347,22 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
                   </>
                 )}
 
+                {onNavigate && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onClose();
+                      onNavigate('thank-you');
+                    }}
+                    className="w-full text-xs font-semibold text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 py-1.5 cursor-pointer underline-offset-2 hover:underline"
+                  >
+                    View Appointment Preparation Guide & Checklist →
+                  </button>
+                )}
+
                 <button
                   onClick={onClose}
-                  className="w-full text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-2 cursor-pointer"
+                  className="w-full text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-1 cursor-pointer"
                 >
                   Return to Website
                 </button>

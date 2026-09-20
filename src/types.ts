@@ -1,4 +1,11 @@
-export type Page = 'home' | 'services' | 'health-tips' | 'contact';
+export type Page =
+  | 'home'
+  | 'services'
+  | 'health-tips'
+  | 'contact'
+  | 'thank-you'
+  | 'privacy-policy'
+  | 'terms-and-conditions';
 
 export type ServiceCategory = 'all' | 'musculoskeletal' | 'neurological' | 'pediatric' | 'wellness';
 

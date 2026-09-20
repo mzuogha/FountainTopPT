@@ -8,6 +8,10 @@ import { HomePage } from './pages/HomePage';
 import { ServicesPage } from './pages/ServicesPage';
 import { HealthTipsPage } from './pages/HealthTipsPage';
 import { ContactPage } from './pages/ContactPage';
+import { ThankYouPage } from './pages/ThankYouPage';
+import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
+import { TermsPage } from './pages/TermsPage';
+import { CookieBanner } from './components/CookieBanner';
 import { Page } from './types';
 
 function getPageFromLocation(): Page {
@@ -17,6 +21,9 @@ function getPageFromLocation(): Page {
   if (path === '/services' || hash === 'services') return 'services';
   if (path === '/health-tips' || hash === 'health-tips') return 'health-tips';
   if (path === '/contact' || hash === 'contact') return 'contact';
+  if (path === '/thank-you' || hash === 'thank-you') return 'thank-you';
+  if (path === '/privacy-policy' || hash === 'privacy-policy') return 'privacy-policy';
+  if (path === '/terms-and-conditions' || hash === 'terms-and-conditions') return 'terms-and-conditions';
 
   return 'home';
 }
@@ -131,16 +138,35 @@ export default function App() {
               onNavigate={navigateTo}
             />
           )}
+
+          {currentPage === 'thank-you' && (
+            <ThankYouPage
+              onNavigate={navigateTo}
+              onOpenBooking={() => handleOpenBooking()}
+            />
+          )}
+
+          {currentPage === 'privacy-policy' && (
+            <PrivacyPolicyPage onNavigate={navigateTo} />
+          )}
+
+          {currentPage === 'terms-and-conditions' && (
+            <TermsPage onNavigate={navigateTo} />
+          )}
         </main>
 
         {/* Footer */}
         <Footer onNavigate={navigateTo} />
+
+        {/* Cookie Consent Banner */}
+        <CookieBanner onNavigate={navigateTo} />
 
         {/* Global Appointment Booking Modal */}
         <AppointmentModal
           isOpen={isBookingOpen}
           onClose={handleCloseBooking}
           initialServiceId={selectedServiceId}
+          onNavigate={navigateTo}
         />
 
         {/* Floating Quick Action Widgets */}
