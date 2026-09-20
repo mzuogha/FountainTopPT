@@ -1,7 +1,13 @@
 {
   "name": "fountain-top-pt",
-  "private": true,
   "version": "1.0.0",
+  "description": "Official website and patient booking portal for Fountain-Top Physiotherapy & Fitness Clinic, Asaba, Delta State, Nigeria.",
+  "homepage": "https://fountaintoppt.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mzuogha/FountainTopPT.git"
+  },
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "tsx server.ts",

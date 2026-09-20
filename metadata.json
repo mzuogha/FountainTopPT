@@ -1,6 +1,6 @@
 {
   "name": "Fountain Top Physical Therapy",
-  "description": "Physical therapy clinic website with patient services, team profiles, and appointment inquiries.",
+  "description": "Official website and patient booking portal for Fountain-Top Physiotherapy & Fitness Clinic in Asaba, Delta State, Nigeria, featuring appointment booking, WhatsApp triage, and rehabilitation guides.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

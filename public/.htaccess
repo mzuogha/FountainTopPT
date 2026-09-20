@@ -22,7 +22,7 @@ Options -Indexes
 </IfModule>
 
 # 2. Security: Block direct access to hidden files, environment files, logs, and metadata
-<FilesMatch "(^\.|\.log$|submissions\.json|\.env|\.git|\.md$|package\.json|tsconfig\.json|composer\.json)">
+<FilesMatch "(^\.|\.log$|submissions\.json|\.env|\.git|\.md$|package\.json|tsconfig\.json|composer\.json|email_config(\.example)?\.php)">
   <IfModule mod_authz_core.c>
     Require all denied
   </IfModule>
